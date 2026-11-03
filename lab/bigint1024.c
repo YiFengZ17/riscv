@@ -222,7 +222,7 @@ int main(void){
         print_words("Q",Q,32);
         print_words("R",R,32);
         printf("carry=%" PRIu32 ", borrow=%" PRIu32
-               ", mul_status=%" PRIu32 ", status=%" PRIu32 "\n",
+               ", mul_status=%" PRIu32 ", div_status=%" PRIu32 "\n",
                carry,borrow,mul_status,div_status);
     }
     return 0;
