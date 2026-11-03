@@ -9,7 +9,7 @@ Sub = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 Pro = 0x0
 Q = 0x0
 R = 0x0
-carry=0, borrow=1, mul_status=0, div_status=0
+carry=0, borrow=1, status=0
 
 Case 2: A=1, B=0
 A = 0x1
@@ -19,7 +19,7 @@ Sub = 0x1
 Pro = 0x0
 Q = 0x0
 R = 0x0
-carry=0, borrow=0, mul_status=0, div_status=1
+carry=0, borrow=0, status=1
 
 Case 3: A=C, B=C
 A = 0x100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000075bcd15
@@ -29,7 +29,7 @@ Sub = 0x0
 Pro = 0x1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000eb79a2a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003626229738a3b9
 Q = 0x1
 R = 0x0
-carry=0, borrow=0, mul_status=0, div_status=0
+carry=0, borrow=0, status=0
 
 Case 4: A=100, B=4
 A = 0x64
@@ -39,7 +39,7 @@ Sub = 0x60
 Pro = 0x190
 Q = 0x19
 R = 0x0
-carry=0, borrow=0, mul_status=0, div_status=0
+carry=0, borrow=0, status=0
 
 Case 5: A=100, B=7
 A = 0x64
@@ -49,7 +49,7 @@ Sub = 0x5d
 Pro = 0x2bc
 Q = 0xe
 R = 0x2
-carry=0, borrow=0, mul_status=0, div_status=0
+carry=0, borrow=0, status=0
 
 Case 6: A=M, B=1
 A = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -59,7 +59,7 @@ Sub = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 Pro = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 Q = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 R = 0x0
-carry=1, borrow=0, mul_status=0, div_status=0
+carry=1, borrow=0, status=0
 
 Case 7: A=2^992, B=1
 A = 0x100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -69,7 +69,7 @@ Sub = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 Pro = 0x100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 Q = 0x100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 R = 0x0
-carry=0, borrow=0, mul_status=0, div_status=0
+carry=0, borrow=0, status=0
 
 Case 8: A=M, B=M
 A = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -79,7 +79,7 @@ Sub = 0x0
 Pro = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
 Q = 0x1
 R = 0x0
-carry=1, borrow=0, mul_status=0, div_status=0
+carry=1, borrow=0, status=0
 
 Case 9: A=5, B=9
 A = 0x5
@@ -89,7 +89,7 @@ Sub = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 Pro = 0x2d
 Q = 0x0
 R = 0x5
-carry=0, borrow=1, mul_status=0, div_status=0
+carry=0, borrow=1, status=0
 
 Case 10: A=2^1023, B=3
 A = 0x8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -99,4 +99,4 @@ Sub = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 Pro = 0x18000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 Q = 0x2aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 R = 0x2
-carry=0, borrow=0, mul_status=0, div_status=0
+carry=0, borrow=0, status=0
