@@ -132,6 +132,6 @@ end
 function Para(el)
   local t = pandoc.utils.stringify(el)
   if t == "流程：" or t == "C 代码：" then
-    return {pandoc.RawBlock("latex", "\\needspace{10\\baselineskip}"), el}
+    return {pandoc.RawBlock("latex", "\\Needspace{8\\baselineskip}"), el}
   end
 end
