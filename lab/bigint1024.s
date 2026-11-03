@@ -19,7 +19,7 @@ R:          .space 128
 carry:      .word 0
 borrow:     .word 0
 mul_status: .word 0
-status:     .word 0
+div_status: .word 0
 
 # Output strings: '.asciz' is equivalent to a C char array.
 case_text:  .asciz "\nCase "
@@ -35,7 +35,7 @@ r_text:     .asciz "R: "
 carry_text: .asciz "carry: "
 borrow_text: .asciz "borrow: "
 mul_text:   .asciz "mul_status: "
-status_text: .asciz "status: "
+div_status_text: .asciz "div_status: "
 
 .text
 .globl main
@@ -85,7 +85,7 @@ main_case:
     la a3, R
     # div_status = div1024(A, B, Q, R);
     jal ra, div1024
-    la t0, status
+    la t0, div_status
     sw a0, 0(t0)
 
     # printf("\nCase %d\n", test);
@@ -151,8 +151,8 @@ main_case:
     li a2, 1
     jal ra, print_words
 
-    la a0, status_text
-    la a1, status
+    la a0, div_status_text
+    la a1, div_status
     li a2, 1
     jal ra, print_words
 
