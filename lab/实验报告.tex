@@ -302,8 +302,7 @@ t0--t4 & 下标、地址和中间值 \\
 \subsection{2.3
 栈帧与保存恢复}\label{ux6808ux5e27ux4e0eux4fddux5b58ux6062ux590d}}
 
-栈帧（stack
-frame）是函数进入时在栈上临时划出来的一块空间，用来放局部数组和要保存的寄存器，返回前再还回去。每个栈帧的大小都是
+栈帧是函数进入时在栈上临时划出来的一块空间，用来放局部数组和要保存的寄存器，返回前再还回去。每个栈帧的大小都是
 16 的倍数，保证 sp 16 字节对齐。
 
 \begin{itemize}
@@ -366,19 +365,18 @@ ecall 只在 main 和打印函数 \texttt{print\_words}
 \section{三、算法说明}\label{ux4e09ux7b97ux6cd5ux8bf4ux660e}}
 
 我先用 C
-写了一遍四个函数（\texttt{bigint1024.c}），确认算法和结果都对，再一段一段翻译成汇编。下面每种运算都按``思路、流程、C
-代码''的顺序来写，C 代码原样贴出。算法正确性和执行次数的分析放在第六节。
+写了一遍四个函数（\texttt{bigint1024.c}），确认算法和结果都对，再一段一段翻译成汇编。下面每种运算都有对应
+C 代码。算法正确性和执行次数的分析放在总结部分。
 
 \FloatBarrier
 
 \hypertarget{ux52a0ux6cd5-add1024}{%
 \subsection{3.1 加法 add1024}\label{ux52a0ux6cd5-add1024}}
 
-寄存器只有 32 位，加法结果超过 32
-位时，超出的那一位会直接丢掉，这叫回绕（wraparound）。所以相加后的结果如果比原来的加数小，就说明产生了进位。每个字要先算
-A{[}i{]} + B{[}i{]}，再加上低一字传来的进位，两步都可能回绕。
+加法的关键在于回绕：寄存器只有 32 位，加法结果超过 32
+位时，超出的那一位会直接丢掉。所以相加后的结果如果比原来的加数小，就说明产生了进位。
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{流程：}
 
@@ -403,7 +401,7 @@ A{[}i{]} + B{[}i{]}，再加上低一字传来的进位，两步都可能回绕�
   2\textsuperscript{1024}，这时 Sum 里存的是和的低 1024 位。
 \end{enumerate}
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{C 代码：}
 
@@ -440,7 +438,7 @@ A{[}i{]} + B{[}i{]}，再加上低一字传来的进位，两步都可能回绕�
 再减。所以不用真的去改高位的数，只要记下一个借位 borrow，下一个字多减 1
 就行。
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{流程：}
 
@@ -465,7 +463,7 @@ A{[}i{]} + B{[}i{]}，再加上低一字传来的进位，两步都可能回绕�
   B) mod 2\textsuperscript{1024}。
 \end{enumerate}
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{C 代码：}
 
@@ -500,11 +498,11 @@ A{[}i{]} + B{[}i{]}，再加上低一字传来的进位，两步都可能回绕�
 mul1024：移位累加}\label{ux4e58ux6cd5-mul1024ux79fbux4f4dux7d2fux52a0}}
 
 思路和手算的竖式乘法一样，只是换成二进制：B 的第 i 位如果是 1，就把``A
-左移 i 位''加到结果上。我用一个 64 字的工作数组 T 存``当前左移过的
-A''，每看完 B 的一位，T 就整体左移 1 位，所以看到第 i 位时，T 正好等于 A
+左移 i 位''加到结果上，如果是0 就不加。但每看完 B 的一位，T 就整体左移 1
+位，等效于数字乘以 2 。所以看到第 i 位时，T 正好等于 A
 \ensuremath{\times} 2\^{}i。
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{流程：}
 
@@ -534,7 +532,7 @@ A''，每看完 B 的一位，T 就整体左移 1 位，所以看到第 i 位时
   返回 0。
 \end{enumerate}
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{C 代码：}
 
@@ -585,10 +583,10 @@ A''，每看完 B 的一位，T 就整体左移 1 位，所以看到第 i 位时
 \subsection{3.4 除法
 div1024：按位长除法}\label{ux9664ux6cd5-div1024ux6309ux4f4dux957fux9664ux6cd5}}
 
-思路和手算的竖式除法一样：从被除数的最高位开始，一位一位``落下来''接在余数后面；余数够减除数，商的这一位就是
+思路和手算的竖式除法一样：从被除数的最高位开始，一位一位``落下来''接在余数后面；试减：余数够减除数，商的这一位就是
 1，并减掉除数；不够减，商的这一位就是 0。
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{流程：}
 
@@ -620,7 +618,7 @@ div1024：按位长除法}\label{ux9664ux6cd5-div1024ux6309ux4f4dux957fux9664ux6
   返回 0。
 \end{enumerate}
 
-\needspace{10\baselineskip}
+\Needspace{8\baselineskip}
 
 \textbf{C 代码：}
 
@@ -740,9 +738,7 @@ Pro{[}31{]} = \texttt{0x80000000}，即 2\textsuperscript{1024} +
 组数据的结果对照}\label{ux7ec4ux6570ux636eux7684ux7ed3ux679cux5bf9ux7167}}
 
 记 M = 2\textsuperscript{1024} \ensuremath{-} 1，C =
-2\textsuperscript{700} + 123456789。``实际结果''来自 RARS
-运行输出，用``非零的字''来写：例如 \texttt{{[}21{]}=0x10000000} 表示第
-21 个字（从 0 数起）是 0x10000000，没列出的字都是 0。
+2\textsuperscript{700} + 123456789。``实际结果''来自 RARS 运行输出。
 
 \textbf{表 1 加法和减法}
 
@@ -933,8 +929,7 @@ div1024 内部用了 s0--s4，还把 sp 减了 160（见图 8，函数内 sp =
 \hypertarget{ux4e94ux8c03ux8bd5ux8bc1ux636e}{%
 \section{五、调试证据}\label{ux4e94ux8c03ux8bd5ux8bc1ux636e}}
 
-以下截图都只运行一组，在 Execute
-窗口中设断点后运行。程序停在断点时，这一行还没有执行。每张图上方是断点附近的代码，下方是停下时的寄存器；内存单元用红框标出。
+程序停在断点时，这一行还没有执行。每张图上方是断点附近的代码，下方是停下时的寄存器；内存单元用红框标出。
 
 \FloatBarrier
 
@@ -1077,12 +1072,12 @@ sp = 0x7fffef50，比 main 里少了 160，是 div1024 的栈帧。s4
   5 + 1 = 11（\texttt{0xb}），又够减。
 \item
   \textbf{第 3 次}：s4 = 1。上一轮减完 R = 4，Q{[}0{]} =
-  \texttt{0xc}。这一轮落下 0，R = 8，又够减。
+  \texttt{0xc}。这一轮落下 0，R = 8，够减。
 \end{itemize}
 
-之后 R = 1，Q{[}0{]} = \texttt{0xe}；i = 0 时 R = 2，小于
-7，不再减。最终 Q = 14，R = 2，满足 100 = 7 \ensuremath{\times} 14 +
-2，和表 3 第 5 组一致。
+之后 R = 1，Q{[}0{]} = \texttt{0xe}；i = 0 时 R = 2，小于 7，不再减。
+最终 Q = 14，R = 2，满足 100 = 7 \ensuremath{\times} 14 + 2，和表 3 第 5
+组一致。
 
 \FloatBarrier
 
@@ -1108,9 +1103,8 @@ sp = 0x7fffef50，比 main 里少了 160，是 div1024 的栈帧。s4
   64 个字一定装得下，不需要溢出标志。T 左移时必须从 T{[}63{]}
   往下做，否则低一字会先被改掉，读到的就不是原来的最高位。
 \item
-  \textbf{除法的循环不变量}：循环不变量（loop
-  invariant）是每一轮结束时都成立的条件。设已经处理过的 A
-  的高位组成的数为 A \texttt{>{}>} i，每轮结束时都有 R = (A
+  \textbf{除法的循环不变量}：循环不变量是每一轮结束时都成立的条件。设已经处理过的
+  A 的高位组成的数为 A \texttt{>{}>} i，每轮结束时都有 R = (A
   \texttt{>{}>} i) mod B，并且 Q 里已经放好的商位组成
   \ensuremath{\lfloor}(A \texttt{>{}>} i) / B\ensuremath{\rfloor}，所以
   0 \ensuremath{\leq} R \textless{} B。
@@ -1128,8 +1122,8 @@ sp = 0x7fffef50，比 main 里少了 160，是 div1024 的栈帧。s4
     \ensuremath{\lfloor}A / B\ensuremath{\rfloor}，R = A mod B，满足 A =
     B \ensuremath{\times} Q + R。
   \item
-    用临时数组 D 而不直接写回 R，是因为任务书规定 sub1024
-    的输入和输出缓冲区不重叠。B = 0 时在进入循环前就返回，不会死循环。
+    用临时数组 D 而不直接写回 R，因为实验规定 sub1024
+    的输入和输出缓冲区不重叠。
   \end{itemize}
 \item
   \textbf{结果的验算}：第 3 组中 1400 = 43 \ensuremath{\times} 32 +
@@ -1137,8 +1131,7 @@ sp = 0x7fffef50，比 main 里少了 160，是 div1024 的栈帧。s4
   \texttt{{[}43{]}=0x01000000}；15241578750190521 =
   0x003626229738a3b9，占第 0、1 个字。第 10 组二进制 \texttt{1010…10}
   除以 3 的商在十六进制里是一串 \texttt{a}，可以验算 3
-  \ensuremath{\times} Q + 2 = 2\textsuperscript{1023}。另外，C
-  版本跑同样 10 组的输出（\texttt{results.txt}）和汇编版完全相同。
+  \ensuremath{\times} Q + 2 = 2\textsuperscript{1023}。
 \item
   \textbf{调用约定}：除法里要调用 sub1024，被调用的函数可以随意改 a、t
   寄存器，所以调用前后都要用的值（各数组地址和 i）放在 s
@@ -1154,7 +1147,7 @@ sp = 0x7fffef50，比 main 里少了 160，是 div1024 的栈帧。s4
 \subsection{6.2
 执行次数分析}\label{ux6267ux884cux6b21ux6570ux5206ux6790}}
 
-下面的指令条数是我按代码逐条数出来的（包括 \texttt{ret}）。
+下面的指令条数是我按代码条数数出来的（包括 \texttt{ret}）。
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0976}}
@@ -1203,29 +1196,8 @@ U-type 的 316 条就是这样来的。
 
 \FloatBarrier
 
-\hypertarget{c-ux4e0eux6c47ux7f16ux7684ux5bf9ux5e94}{%
-\subsection{6.3 C
-与汇编的对应}\label{c-ux4e0eux6c47ux7f16ux7684ux5bf9ux5e94}}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{加减法}：C 里用 if/else 判断进借位；汇编里用
-  \texttt{sltu}（无符号小于则置 1）直接算出 c1、c2（或 b1、b2）两个 0/1
-  值，再按位或，循环里没有分支。因为两步不会同时进位，两种写法结果相同。
-\item
-  \textbf{乘法}：\texttt{i\ /\ 32} 写成右移 5 位，\texttt{i\ \%\ 32}
-  写成和 31 按位与，不需要除法指令。
-\item
-  \textbf{除法}：C 里用 \texttt{zero} 标志判断 B 是否为 0，汇编里把 B 的
-  32 个字按位或起来，结果为 0 就是 B = 0；C 里的 \texttt{greater\_equal}
-  标志，在汇编里用两条 \texttt{bltu} 分支直接跳到``相减''或``跳过''。
-\end{itemize}
-
-\FloatBarrier
-
 \hypertarget{ux9047ux5230ux7684ux95eeux9898ux548cux89e3ux51b3ux529eux6cd5}{%
-\subsection{6.4
+\subsection{6.3
 遇到的问题和解决办法}\label{ux9047ux5230ux7684ux95eeux9898ux548cux89e3ux51b3ux529eux6cd5}}
 
 \begin{enumerate}
@@ -1233,43 +1205,27 @@ U-type 的 316 条就是这样来的。
 \tightlist
 \item
   \textbf{加法：不会判断进位。}
-  一开始我觉得两个非负数相加，结果不会比原来的数小，所以不理解``结果变小就是进位''这个判断。后来通过算例弄懂了回绕：比如
-  \texttt{0xffffffff\ +\ 1} 只留下
-  0。我还发现加上进位这一步也可能回绕，所以两步要分别检查。另外，我曾经先更新
-  carry 再把它加进本字，旧的进位就被覆盖了；后来调整了先后顺序。
+  一开始我觉得两个非负数相加，结果不会比原来的数小，所以不理解``结果变小就是进位''这个判断。后来通过查询理解了回绕机制问题就解开了。
 \item
   \textbf{减法：借位方向。}
-  一开始我按纸上竖式的习惯，想在本位不够减时往高位找可以借的位，再去改中间的位。这样流程很复杂，还会修改输入数组，不符合要求。后来我明白，只需要记一个
-  borrow，让下一个字多减 1 就行，不用真的去改高位的输入。
+  一开始我按纸上竖式的习惯，想在本位不够减时往高位找可以借的位，再去改中间的位。这样流程很复杂，还会修改输入数组，不符合要求。理解回绕之后我直接使用borrow记录本位是否向低位借过位即可。
 \item
   \textbf{乘法：宽度和移位。}
-  一开始我没有分清输入和乘积的宽度，想直接用只处理 32 个字的 add1024
-  来累加乘积，结果高 32 个字和跨界的进位都没有处理。后来我把累加扩展到
-  64 个字。我还曾把数组元素整体挪动一格当作左移一位，其实那是乘以
-  2\textsuperscript{32}；正确做法是每个字左移 1
-  位，再接上低字的最高位。另外，我曾把移位放在了循环外面，T
-  没有每轮翻倍，后来移回了循环里面。取 B 的第 k
-  位时，我也曾搞混过移位方向。
+  我曾把数组元素整体挪动一格当作左移一位，其实那是乘以
+  2\textsuperscript{32}（因为32个字，每个字是32位）；正确做法是每个字左移
+  1 位，再接上低字的最高位。这一点比简单二进制位的移位稍复杂。
 \item
-  \textbf{除法：比较和移位。} 从高字往低字比较时，我曾在两个字相等时就用
-  \texttt{\textgreater{}=}
-  提前下结论。其实高字相等时还要继续比下一个字，只有遇到不相等的字才能决定大小。另外，余数要整体左移一位再放入新的位，处理顺序要从高字到低字。
-\item
-  \textbf{从 C 改写成汇编。} C
-  里由编译器处理的事情，在汇编里都要自己安排：数组地址要乘 4，数据要用
-  \texttt{.align\ 2} 对齐，栈帧大小要算清楚，用过的 s
-  寄存器要保存恢复，除法调用 sub1024 前还要保存
-  ra。返回前必须先取回寄存器，再把 sp 加回去。
+  \textbf{从 C 改写成汇编。} 在汇编里要自己安排：数组地址要乘
+  4，栈帧大小要算清楚，用过的 s 寄存器要保存恢复，除法调用 sub1024
+  前还要保存 ra。返回前必须先取回寄存器，再把 sp
+  加回去。以及还要自学打印字符串的处理方法，数据要用 \texttt{.align\ 2}
+  对齐等输出内容。
 \end{enumerate}
-
-程序能正确运行之后，我又整理了代码：给关键指令加了对应 C
-表达式的注释，按步骤用空行分段，删减了重复的段首说明，并把除法的返回值统一命名为
-\texttt{status}，和任务书的说法一致。
 
 \FloatBarrier
 
 \hypertarget{ux4ecdux5b58ux5728ux7684ux4e0dux8db3}{%
-\subsection{6.5
+\subsection{6.4
 仍存在的不足}\label{ux4ecdux5b58ux5728ux7684ux4e0dux8db3}}
 
 \begin{enumerate}
@@ -1301,9 +1257,10 @@ U-type 的 316 条就是这样来的。
 \begin{itemize}
 \tightlist
 \item
-  汇编源程序：\texttt{bigint1024.s}（提交包中），在 RARS 1.6 的 RV32
+  汇编源程序：\texttt{bigint1024.s}，在 RARS 1.6 的 RV32
   模式下可以直接汇编运行。
 \item
-  C 参考实现：\texttt{bigint1024.c}，四个运算函数已在第三节给出。
+  C
+  参考实现：\texttt{bigint1024.c}，四个运算函数已在第三节给出，作为证据也一并提交。
 \end{itemize}
 \end{document}
