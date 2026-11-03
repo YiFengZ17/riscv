@@ -14,11 +14,10 @@ Pro:        .space 256
 Q:          .space 128
 R:          .space 128
 
-# Return values of the four routines, saved by main.
+# Return values saved by main: add carry, sub borrow, div status.
 carry:      .word 0
 borrow:     .word 0
-mul_status: .word 0
-div_status: .word 0
+status:     .word 0
 
 # Output strings for printing.
 case_text:  .asciz "\nCase "
@@ -33,8 +32,7 @@ q_text:     .asciz "Q: "
 r_text:     .asciz "R: "
 carry_text: .asciz "carry: "
 borrow_text: .asciz "borrow: "
-mul_text:   .asciz "mul_status: "
-div_status_text: .asciz "div_status: "
+status_text: .asciz "status: "
 
 .text
 .globl main
@@ -73,18 +71,16 @@ main_case:
     la a0, A
     la a1, B
     la a2, Pro
-    # mul_status = mul1024(A, B, Pro);
+    # mul1024(A, B, Pro); always returns 0, so a0 is not saved.
     jal ra, mul1024
-    la t0, mul_status
-    sw a0, 0(t0)
 
     la a0, A
     la a1, B
     la a2, Q
     la a3, R
-    # div_status = div1024(A, B, Q, R);
+    # status = div1024(A, B, Q, R);
     jal ra, div1024
-    la t0, div_status
+    la t0, status
     sw a0, 0(t0)
 
     # printf("\nCase %d\n", test);
@@ -144,13 +140,8 @@ main_case:
     li a2, 1
     jal ra, print_words
 
-    la a0, mul_text
-    la a1, mul_status
-    li a2, 1
-    jal ra, print_words
-
-    la a0, div_status_text
-    la a1, div_status
+    la a0, status_text
+    la a1, status
     li a2, 1
     jal ra, print_words
 
