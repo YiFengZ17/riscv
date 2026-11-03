@@ -155,11 +155,12 @@ main_case:
     la a1, status
     li a2, 1
     jal ra, print_words
-    
+
     addi s0, s0, 1
     la t0, last_case
     lw t0, 0(t0)
     bge t0, s0, main_case
+
     li a7, 10
     ecall
 
@@ -168,6 +169,7 @@ main_case:
 add1024:
     li t0, 32
     li t1, 0
+
 # for(int i=0; i<32; i++):
 # partial = A[i] + B[i]; c1 = (partial < A[i]);
 # Sum[i] = partial + carry; c2 = (Sum[i] < partial); carry = c1 | c2;
@@ -186,6 +188,7 @@ add_loop:
     addi a2, a2, 4
     addi t0, t0, -1
     bnez t0, add_loop         # while(i < 32)
+
     mv a0, t1                 # return carry;
     ret
 
@@ -194,6 +197,7 @@ add_loop:
 sub1024:
     li t0, 32
     li t1, 0
+
 # for(int i=0; i<32; i++):
 # b1 = (A[i] < B[i]); partial = A[i] - B[i];
 # b2 = (partial < borrow); Sub[i] = partial - borrow; borrow = b1 | b2;
@@ -211,6 +215,7 @@ sub_loop:
     addi a2, a2, 4
     addi t0, t0, -1
     bnez t0, sub_loop         # while(i < 32)
+
     mv a0, t1                 # return borrow;
     ret
 
@@ -222,12 +227,14 @@ mul1024:
     sw s0, 256(sp)
     sw s1, 260(sp)
     sw s2, 264(sp)
+
     mv s0, a1                 # s0 = B
     mv s1, a2                 # s1 = Pro
     li s2, 0                  # i = 0 (bit index of B)
     li t0, 0                  # j = 0
     mv t1, sp                 # t1 = &T[0]
     mv t2, a2                 # t2 = &Pro[0]
+
 # for(int j=0; j<64; j++){ Pro[j]=0; T[j]=(j<32 ? A[j] : 0); }
 # t0=j, t1=&T[j], t2=&Pro[j].
 mul_init:
@@ -246,6 +253,7 @@ mul_init_store:
     addi t0, t0, 1            # j++
     li t3, 64
     blt t0, t3, mul_init      # while(j < 64)
+
 # for(int i=0; i<1024; i++): bit_i = (B[i/32] >> (i%32)) & 1u;
 # i>>5 gives i/32; i&31 gives i%32; multiply the word index by 4 for its byte offset.
 mul_bit:
@@ -277,6 +285,7 @@ mul_add:
     addi t1, t1, 4
     addi t2, t2, -1
     bnez t2, mul_add          # while(j < 64)
+
 # Regardless of bit_i: for(int j=63; j>0; j--)
 #     T[j] = (T[j]<<1) | (T[j-1]>>31);
 # Then T[0] <<= 1. Process high words first to preserve the lower source word.
@@ -293,12 +302,15 @@ mul_shift_loop:
     addi t0, t0, -4           # j--
     addi t1, t1, -1
     bnez t1, mul_shift_loop   # while(j > 0)
+
     lw t2, 0(sp)              # T[0] <<= 1
     slli t2, t2, 1
     sw t2, 0(sp)
+
     addi s2, s2, 1            # i++
     li t0, 1024
     blt s2, t0, mul_bit       # while(i < 1024)
+
     # Restore saved registers and release the entire frame.
     lw s0, 256(sp)
     lw s1, 260(sp)
@@ -322,6 +334,7 @@ div1024:
     sw s3, 140(sp)
     sw s4, 144(sp)
     sw ra, 148(sp)
+
     mv s0, a0                 # s0 = A
     mv s1, a1                 # s1 = B
     mv s2, a2                 # s2 = Q
@@ -329,6 +342,7 @@ div1024:
     li t0, 0                  # j = 0 (as byte offset 4*j)
     li t1, 0                  # divisor_bits = 0
     li t2, 32
+
 # for(int j=0; j<32; j++){ Q[j]=R[j]=0; divisor_bits |= B[j]; }
 # t0=byte offset, t1=divisor_bits, t2=words remaining.
 # divisor_bits==0 is equivalent to the C zero flag being true.
@@ -343,8 +357,10 @@ div_clear:
     addi t0, t0, 4            # j++
     addi t2, t2, -1
     bnez t2, div_clear        # while(j < 32)
+
     beqz t1, div_zero         # if(divisor_bits == 0) return 1;
     li s4, 1023               # i = 1023
+
 # for(int i=1023; i>=0; i--):
 # for(int j=31; j>0; j--) R[j] = (R[j]<<1) | (R[j-1]>>31);
 div_bit:
@@ -360,6 +376,7 @@ div_shift:
     addi t0, t0, -4           # j--
     addi t1, t1, -1
     bnez t1, div_shift        # while(j > 0)
+
     # R[0] = (R[0]<<1) | ((A[i/32] >> (i%32)) & 1u);
     srli t0, s4, 5            # i / 32
     slli t0, t0, 2            # byte offset 4*(i/32)
@@ -386,12 +403,14 @@ div_compare:
     bltu t4, t3, div_subtract # R[j] > B[j]: R > B, subtract
     addi t0, t0, -4           # R[j] == B[j]: j--, compare lower word
     bgez t0, div_compare      # while(j >= 0); falling out means R == B
+
 # if(greater_equal) sub1024(R, B, D); use separate D to avoid overlapping buffers.
 div_subtract:
     mv a0, s3                 # a0 = R
     mv a1, s1                 # a1 = B
     mv a2, sp                 # a2 = D (on the stack)
     jal ra, sub1024           # sub1024(R, B, D);
+
     li t0, 0                  # j = 0 (as byte offset 4*j)
     li t1, 32
 # for(int j=0; j<32; j++) R[j] = D[j];
@@ -403,6 +422,7 @@ div_copy:
     addi t0, t0, 4            # j++
     addi t1, t1, -1
     bnez t1, div_copy         # while(j < 32)
+
     # Q[i/32] |= 1u << (i%32);
     srli t0, s4, 5            # i / 32
     slli t0, t0, 2            # byte offset 4*(i/32)
@@ -413,14 +433,18 @@ div_copy:
     lw t3, 0(t0)              # Q[i/32]
     or t3, t3, t2             # Q[i/32] |= 1u << (i%32)
     sw t3, 0(t0)
+
 div_next:
     addi s4, s4, -1           # i--
     bgez s4, div_bit          # while(i >= 0)
+
     li a0, 0                  # return 0;
     j div_return
+
 # Division by zero: Q and R are already cleared; return 1.
 div_zero:
     li a0, 1                  # return 1;
+
 # Both return paths restore saved registers/ra and release the 160-byte frame.
 div_return:
     lw s0, 128(sp)
@@ -439,6 +463,7 @@ div_return:
 print_words:
     li a7, 4
     ecall
+
     slli t0, a2, 2
     add t0, a1, t0
     addi t0, t0, -4
@@ -455,6 +480,7 @@ print_loop:
     addi t0, t0, -4
     addi t1, t1, -1
     bnez t1, print_loop
+
     la a0, newline
     li a7, 4
     ecall
@@ -473,6 +499,7 @@ case_clear:
     addi t1, t1, 4
     addi t2, t2, -1
     bnez t2, case_clear
+
     la t0, Sum
     la t1, carry
     li t2, 0xa5a5a5a5
@@ -482,6 +509,7 @@ case_fill_outputs:
     sw t2, 0(t0)
     addi t0, t0, 4
     bltu t0, t1, case_fill_outputs
+
     la t0, A
     la t1, B
     # switch(test): branch to cases 1..9; valid case 10 falls through.
