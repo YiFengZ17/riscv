@@ -40,8 +40,14 @@ local function symbols(text, out)
   if #buf > 0 then table.insert(out, pandoc.Str(table.concat(buf))) end
 end
 
+-- Keep each figure inside its own (sub)section.
+function Header(el)
+  return {pandoc.RawBlock("latex", "\\FloatBarrier"), el}
+end
+
 function Str(el)
   local s = el.text
+  if s == ">>" then return pandoc.RawInline("latex", "\\texttt{>{}>}") end
   if s:find("【待补", 1, true) then
     return pandoc.Span({el}, {style = "color:red"}) and
       pandoc.RawInline("latex", "\\textcolor{red}{\\textbf{" .. s .. "}}")

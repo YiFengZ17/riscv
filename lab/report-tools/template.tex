@@ -8,6 +8,7 @@
 \usepackage{fvextra}
 \usepackage{enumitem}
 \usepackage{needspace}
+\usepackage{placeins}
 \usepackage[hidelinks]{hyperref}
 
 \setmainfont{TeX Gyre Termes}
@@ -23,8 +24,9 @@
 \setlist{nosep, leftmargin=2.2em}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-% Figures stay where they are written; captions already carry their own numbers.
-\floatplacement{figure}{H}
+% Figures may float, but never past the start of the next (sub)section: the filter puts
+% \FloatBarrier before every heading. Captions already carry their own numbers.
+\floatplacement{figure}{htbp}
 \captionsetup[figure]{labelformat=empty, font=small}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
