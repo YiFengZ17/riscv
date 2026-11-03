@@ -1,11 +1,12 @@
-# RARS 1.6 / RV32I. Low words first, 32 bits per word.
-# Run cases first_case..last_case; set both to the same number for a single case.
+# Using RARS 1.6 / RV32I
+
+
 .data
 .align 2 # 4-byte alignment.
 first_case: .word 1
 last_case:  .word 10
 # uint32_t A[32], B[32], Sum[32], Sub[32], Pro[64], Q[32], R[32];
-# Each normal buffer occupies 128 bytes; the full product occupies 256 bytes.
+# Each normal array occupies 128 bytes; the full product occupies 256 bytes.
 A:          .space 128
 B:          .space 128
 Sum:        .space 128
@@ -13,12 +14,14 @@ Sub:        .space 128
 Pro:        .space 256
 Q:          .space 128
 R:          .space 128
-# Return values saved by main: carry, borrow, multiplication status, division status.
+
+# Return values saved by main to show the calculation status
 carry:      .word 0
 borrow:     .word 0
 mul_status: .word 0
 status:     .word 0
-# Output strings: .asciz is equivalent to a zero-terminated C char array.
+
+# Output strings: '.asciz' is equivalent to a C char array.
 case_text:  .asciz "\nCase "
 newline:    .asciz "\n"
 space:      .asciz " "
@@ -40,7 +43,8 @@ status_text: .asciz "status: "
 .globl sub1024
 .globl mul1024
 .globl div1024
-# for(int test=first_case; test<=last_case; test++){ load_case(test); compute; print; }
+
+
 # s0=test across calls. a0..a3 pass arguments; save each return value in a0 before reusing it.
 main:
     # Align the initial RARS stack pointer to 16 bytes.
@@ -79,7 +83,7 @@ main_case:
     la a1, B
     la a2, Q
     la a3, R
-    # status = div1024(A, B, Q, R);
+    # div_status = div1024(A, B, Q, R);
     jal ra, div1024
     la t0, status
     sw a0, 0(t0)

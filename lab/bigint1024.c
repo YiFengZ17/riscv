@@ -211,7 +211,7 @@ int main(void){
         uint32_t carry = add1024(A,B,Sum);
         uint32_t borrow = sub1024(A,B,Sub);
         uint32_t mul_status = mul1024(A,B,Pro);
-        uint32_t status = div1024(A,B,Q,R);
+        uint32_t div_status = div1024(A,B,Q,R);
 
         printf("\nCase %d: %s\n",test,cases[test-1]);
         print_words("A",A,32);
@@ -223,7 +223,7 @@ int main(void){
         print_words("R",R,32);
         printf("carry=%" PRIu32 ", borrow=%" PRIu32
                ", mul_status=%" PRIu32 ", status=%" PRIu32 "\n",
-               carry,borrow,mul_status,status);
+               carry,borrow,mul_status,div_status);
     }
     return 0;
 }
