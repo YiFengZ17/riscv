@@ -1,0 +1,1948 @@
+% Pandoc template for 实验报告.md -> 实验报告.tex (compiled with XeLaTeX).
+\documentclass[11pt,a4paper]{ctexart}
+\usepackage[top=2.3cm,bottom=2.3cm,left=2.2cm,right=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{longtable,booktabs,array,calc}
+\usepackage{graphicx,float,caption}
+\usepackage{xcolor}
+\usepackage{fvextra}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{DejaVu Sans Mono}[Scale=0.85]
+
+\ctexset{
+  section/format = \Large\bfseries\raggedright,
+  subsection/format = \large\bfseries\raggedright,
+  secnumdepth = -1,
+}
+\setlength{\parskip}{0.3em}
+\setlist{nosep, leftmargin=2.2em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Figures stay where they are written; captions already carry their own numbers.
+\floatplacement{figure}{H}
+\captionsetup[figure]{labelformat=empty, font=small}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>0.42\textheight 0.42\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Tables
+\renewcommand{\arraystretch}{1.25}
+\setlength{\LTpre}{0.6em}
+\setlength{\LTpost}{0.6em}
+
+% Code
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\RecustomVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize,breaklines=true}
+\definecolor{shadecolor}{RGB}{246,246,246}
+\renewenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\fvset{fontsize=\footnotesize}
+
+\newcommand{\missingshot}[1]{\fcolorbox{red}{white}{\parbox{0.9\linewidth}{\centering\vspace{1.5em}\color{red}待补截图：\texttt{#1}\vspace{1.5em}}}}
+
+\title{\textbf{实验报告：基于 RISC-V 的 1024 位无符号整数运算}}
+\author{}
+\date{}
+
+\pagestyle{plain}
+
+\begin{document}
+\thispagestyle{plain}
+\maketitle
+\vspace{-3em}
+\hypertarget{ux4e00ux57faux672cux4fe1ux606f}{%
+\section{一、基本信息}\label{ux4e00ux57faux672cux4fe1ux606f}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2612}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7388}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+项目
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+内容
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+学号 & 3250105856 \\
+姓名 & 郑逸枫 \\
+实验名称 & 基于 RISC-V 的 1024 位无符号整数运算 \\
+RARS 版本与模式 & RARS 1.6，RV32 模式（Settings 中关闭
+64-bit），允许伪指令 \\
+运行环境 & Windows + WSL2 Ubuntu 24.04，Java: OpenJDK 21.0.12.1（64
+位） \\
+提交文件 &
+\texttt{bigint1024.s}（源程序），\texttt{实验报告.pdf}（本报告） \\
+\end{longtable}
+
+\hypertarget{ux4e8cux6570ux636eux4e0eux5bc4ux5b58ux5668ux8bbeux8ba1}{%
+\section{二、数据与寄存器设计}\label{ux4e8cux6570ux636eux4e0eux5bc4ux5b58ux5668ux8bbeux8ba1}}
+
+\hypertarget{ux6570ux636eux5e03ux5c40}{%
+\subsection{2.1 数据布局}\label{ux6570ux636eux5e03ux5c40}}
+
+RV32 的一个字是 32 位，即 4 个字节。一个 1024 位的数要用 32 个字来存，占
+128 字节。按``低位字在前''的顺序存放：A{[}0{]} 是最低的 32 位，A{[}31{]}
+是最高的 32 位，所以
+
+\texttt{A\ =\ A{[}0{]}\ +\ A{[}1{]}×2\^{}32\ +\ A{[}2{]}×2\^{}64\ +\ …\ +\ A{[}31{]}×2\^{}992}
+
+第 i 个字的地址是``首地址 + 4\ensuremath{\times}i''，所以 A{[}31{]}
+在偏移 124 字节的位置。而乘积 Pro 是 2048 位，要用 64 个字，占 256
+字节，所以最高字 Pro{[}63{]} 在偏移 252 字节的位置。
+
+所有缓冲区都在 \texttt{.data} 段里，用 \texttt{.align\ 2} 保证按 4
+字节对齐。由于RARS 默认把数据段放在
+\texttt{0x10010000}，所以各标签的地址如下。在 Data Segment
+窗口按这些地址就能找到结果。
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1918}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1918}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1468}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4696}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+标签
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+地址
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+大小
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+内容
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{first\_case} & 0x10010000 & 1 字 & 第一个要运行的用例编号，默认
+1 \\
+\texttt{last\_case} & 0x10010004 & 1 字 & 最后一个要运行的用例编号，默认
+10 \\
+\texttt{A} & 0x10010008 & 32 字 & 被加数、被减数、被乘数、被除数 \\
+\texttt{B} & 0x10010088 & 32 字 & 加数、减数、乘数、除数 \\
+\texttt{Sum} & 0x10010108 & 32 字 & 和 S \\
+\texttt{Sub} & 0x10010188 & 32 字 & 差 D \\
+\texttt{Pro} & 0x10010208 & 64 字 & 完整 2048 位乘积 P \\
+\texttt{Q} & 0x10010308 & 32 字 & 商 \\
+\texttt{R} & 0x10010388 & 32 字 & 余数 \\
+\texttt{carry} & 0x10010408 & 1 字 & add1024 的返回值，1 表示加法溢出 \\
+\texttt{borrow} & 0x1001040c & 1 字 & sub1024 的返回值，1 表示 A
+\textless{} B \\
+\texttt{status} & 0x10010410 & 1 字 & div1024 的返回值，1 表示除数为
+0 \\
+\end{longtable}
+
+由于mul乘法分配的内存足够大，不会出现溢出等特殊情况，所以不返回status。
+
+\textbf{切换用例：} 把 \texttt{first\_case} 和 \texttt{last\_case}
+改成1到10中的同一个数，就只运行这一组；默认是 1 到 10 全部运行。10
+组输入写在 \texttt{load\_case} 子程序里，每组对应一个标签
+\texttt{case\_1} 到 \texttt{case\_10}。
+
+\textbf{检查有没有漏写的输出字：} 每组开始前，\texttt{load\_case} 先把
+Sum、Sub、Pro、Q、R 全部填成
+\texttt{0xa5a5a5a5}。这个值在正确结果里不会刚好出现，所以运行后如果哪个字还是
+\texttt{0xa5a5a5a5}，就说明函数漏写了这个字。这也能证明结果不依赖缓冲区原来是
+0。
+
+\hypertarget{ux5bc4ux5b58ux5668ux7528ux9014}{%
+\subsection{2.2 寄存器用途}\label{ux5bc4ux5b58ux5668ux7528ux9014}}
+
+调用约定是函数之间的一套规定：参数放在哪、返回值放在哪、哪些寄存器用完要还原。按任务书要求，a0--a7
+和 t0--t6 可以随便改；s0--s11 如果用了，返回前必须恢复成原来的值。
+
+\textbf{main}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1664}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8336}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+寄存器
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+用途
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+s0 & 当前用例编号，跨所有函数调用保持不变 \\
+a0--a3 & 给运算函数传参数；调用后 a0 是返回值，main 马上把它存到
+carry、borrow 或 status \\
+a7 & ecall 的服务号：4 打印字符串，1 打印整数，34
+按十六进制打印一个字，10 退出 \\
+t0 & 临时存放标签地址 \\
+\end{longtable}
+
+\textbf{add1024 / sub1024}
+
+由于两个函数结构一样，这里合并处理。
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2069}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7931}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+寄存器
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+用途
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+a0, a1, a2 & 入口时是 \&A、\&B、\&Sum（或 \&Sub），每处理一个字就加
+4，指向下一个字 \\
+t0 & 还剩几个字没处理，从 32 减到 0 \\
+t1 & 进位 carry（减法里是借位 borrow），最后放进 a0 返回 \\
+t2, t3 & A{[}i{]}、B{[}i{]} 和中间结果 \\
+t4, t5 & 两步运算各自有没有产生进位（借位） \\
+\end{longtable}
+
+\textbf{mul1024}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2896}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7104}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+寄存器
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+用途
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+s0 & \&B \\
+s1 & \&Pro \\
+s2 & i，正在看 B 的第几位（0--1023） \\
+t0--t2 & 循环下标 j 和数组指针 \\
+t3 & 64 字累加时的进位 \\
+t4--t6, a3, a4 & 累加和移位时的中间值；a3、a4 是两步进位标志 \\
+\end{longtable}
+
+\textbf{div1024}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2976}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7024}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+寄存器
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+用途
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+s0, s1, s2, s3 & \&A、\&B、\&Q、\&R \\
+s4 & i，正在处理 A 的第几位（从 1023 往下数到 0） \\
+ra & 调用 sub1024 前已保存，返回前恢复 \\
+a0--a2 & 调用 sub1024 时传参数 \\
+t0--t4 & 下标、地址和中间值 \\
+\end{longtable}
+
+除法里要调用 sub1024。被调用的函数可以随意改 a 寄存器和 t
+寄存器，所以那些在调用前后都要用的值（各数组地址和 i），我放在 s
+寄存器里。
+
+\hypertarget{ux6808ux5e27ux4e0eux4fddux5b58ux6062ux590d}{%
+\subsection{2.3
+栈帧与保存恢复}\label{ux6808ux5e27ux4e0eux4fddux5b58ux6062ux590d}}
+
+栈帧（stack
+frame）是函数进入时在栈上临时划出来的一块空间，用来放局部数组和要保存的寄存器，返回前再还回去。实验要求
+sp 保持 16 字节对齐，所以把每个栈帧的大小都定成 16 的倍数。
+
+\begin{itemize}
+\item
+  \textbf{main}：开头用 \texttt{andi\ sp,\ sp,\ -16} 把 sp 对齐到 16
+  字节。main 最后用 ecall 10 退出，不返回。
+\item
+  \textbf{add1024、sub1024}：叶子函数（leaf
+  function），也就是不再调用别的函数的函数。它们只用 a 寄存器和 t
+  寄存器，所以不需要栈帧。
+\item
+  \textbf{mul1024}：栈帧 272 字节（= 17 \ensuremath{\times} 16）。
+
+  \begin{longtable}[]{@{}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3938}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6062}}@{}}
+  \toprule\noalign{}
+  \begin{minipage}[b]{\linewidth}\raggedright
+  位置
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  内容
+  \end{minipage} \\
+  \midrule\noalign{}
+  \endhead
+  \bottomrule\noalign{}
+  \endlastfoot
+  sp+0 -- sp+255 & 工作数组 T{[}64{]}，存左移中的被乘数 \\
+  sp+256, +260, +264 & 保存的 s0, s1, s2 \\
+  sp+268 & 空着，用来凑满 16 的倍数 \\
+  \end{longtable}
+\item
+  \textbf{div1024}：栈帧 160 字节（= 10 \ensuremath{\times} 16）。
+
+  \begin{longtable}[]{@{}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3552}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6448}}@{}}
+  \toprule\noalign{}
+  \begin{minipage}[b]{\linewidth}\raggedright
+  位置
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  内容
+  \end{minipage} \\
+  \midrule\noalign{}
+  \endhead
+  \bottomrule\noalign{}
+  \endlastfoot
+  sp+0 -- sp+127 & 临时数组 D{[}32{]}，存 R \ensuremath{-} B 的结果 \\
+  sp+128 -- sp+144 & 保存的 s0--s4 \\
+  sp+148 & 保存的 ra（因为要调用 sub1024） \\
+  sp+152 -- sp+159 & 空着，用来凑满 16 的倍数 \\
+  \end{longtable}
+\end{itemize}
+
+两个函数都是先从栈上取回保存的寄存器，再把 sp 加回同样的大小，然后
+\texttt{ret}。div1024 有两个出口（正常结束和除数为
+0），两条路径最后都走同一段恢复代码
+\texttt{div\_return}，所以不会漏恢复。
+
+另外，算术函数里没有用 ecall。ecall 只在 main 和打印函数
+\texttt{print\_words} 里使用。
+
+\hypertarget{ux4e09ux7b97ux6cd5ux8bf4ux660e}{%
+\section{三、算法说明}\label{ux4e09ux7b97ux6cd5ux8bf4ux660e}}
+
+我先用 C
+写了一遍四个函数（\texttt{bigint1024.c}），确认算法和结果都对，再一段一段翻译成汇编。汇编里每个循环上方写了对应的
+C 循环，关键指令后面写了对应的 C 表达式。
+
+下面每种运算都按``思路、流程、C 代码''的顺序来写。C
+代码是我写的参考实现，原样贴出。
+
+\hypertarget{ux52a0ux6cd5-add1024}{%
+\subsection{3.1 加法 add1024}\label{ux52a0ux6cd5-add1024}}
+
+核心是回绕（wraparound）机制：寄存器只有 32 位，加法结果超过 32
+位时，超出的那一位会直接丢掉，只留下低 32 位。比如
+\texttt{0xffffffff\ +\ 1} 的数学结果是
+\texttt{0x1\_00000000}，但寄存器里只剩
+\texttt{0}。所以，如果相加后的结果反而比原来的加数小，就说明发生了回绕，也就是产生了进位。
+
+每个字要加三样东西：A{[}i{]}、B{[}i{]}，以及低一个字传上来的进位。这要分两步：先算
+A{[}i{]} +
+B{[}i{]}，再加上进位。每一步都可能回绕，只要有一步回绕，就要向高一字进位
+1。两步不会同时进位：第一步进位时，结果最大是 \texttt{0xfffffffe}，再加
+1 不会回绕。
+
+\needspace{10\baselineskip}
+
+\textbf{流程：}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  carry = 0，从 i = 0（最低字）开始。
+\item
+  \texttt{partial\ =\ A{[}i{]}\ +\ B{[}i{]}}。如果
+  \texttt{partial\ \textless{}\ A{[}i{]}}，说明第一步回绕，记 c1 = 1。
+\item
+  \texttt{Sum{[}i{]}\ =\ partial\ +\ carry}。如果
+  \texttt{Sum{[}i{]}\ \textless{}\ partial}，说明第二步回绕，记 c2 = 1。
+\item
+  \texttt{carry\ =\ c1\ \textbar{}\ c2}，把 Sum{[}i{]} 写回，carry
+  留给下一个字。
+\item
+  i 加 1，重复第 2--4 步，一共 32 次。
+\item
+  返回 carry：1 表示 A + B \ensuremath{\geq}
+  2\textsuperscript{1024}，这时 Sum 里存的是和的低 1024 位。
+\end{enumerate}
+
+\needspace{10\baselineskip}
+
+\textbf{C 代码：}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{uint32\_t}\NormalTok{ add1024}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ A}\OperatorTok{,}\DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ B}\OperatorTok{,}\DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ Sum}\OperatorTok{)\{}
+    \DataTypeTok{uint32\_t}\NormalTok{ carry }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+    \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{i}\OperatorTok{\textless{}}\DecValTok{32}\OperatorTok{;}\NormalTok{i}\OperatorTok{++)\{}
+\NormalTok{        Sum}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ A}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{+}\NormalTok{ B}\OperatorTok{[}\NormalTok{i}\OperatorTok{];}
+        \ControlFlowTok{if}\OperatorTok{(}\NormalTok{Sum}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{\textless{}}\NormalTok{ A}\OperatorTok{[}\NormalTok{i}\OperatorTok{])\{} \CommentTok{// wrap around}
+\NormalTok{            Sum}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ Sum}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{+}\NormalTok{ carry}\OperatorTok{;}
+\NormalTok{            carry }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+        \OperatorTok{\}}\ControlFlowTok{else}\OperatorTok{\{}
+\NormalTok{            Sum}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ Sum}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{+}\NormalTok{ carry}\OperatorTok{;}
+            \ControlFlowTok{if}\OperatorTok{(}\NormalTok{Sum}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{\textless{}}\NormalTok{ carry}\OperatorTok{)\{}\CommentTok{// wrap around}
+\NormalTok{                carry }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+            \OperatorTok{\}}\ControlFlowTok{else}\OperatorTok{\{}
+\NormalTok{                carry }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+            \OperatorTok{\}}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+    \ControlFlowTok{return}\NormalTok{ carry}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+C 里用 if/else
+判断进位：第一步回绕（\texttt{Sum{[}i{]}\ \textless{}\ A{[}i{]}}）时，carry
+直接置 1；否则再看加上 carry 之后有没有回绕。改写成汇编时，我用
+\texttt{sltu}（无符号小于则置 1）直接算出 c1、c2 这两个 0/1
+值，再按位或得到新的
+carry，所以循环里没有分支。因为两步不会同时进位，两种写法的结果相同。
+
+\hypertarget{ux51cfux6cd5-sub1024}{%
+\subsection{3.2 减法 sub1024}\label{ux51cfux6cd5-sub1024}}
+
+减法也会回绕：\texttt{0\ -\ 1} 在 32 位里变成
+\texttt{0xffffffff}，相当于本字先向高位借了 2\textsuperscript{32}
+再减。所以我不用真的去改高位的数，只要记下一个借位 borrow，下一个字多减
+1 就行。
+
+和加法一样，每个字也分两步：先算 A{[}i{]} \ensuremath{-}
+B{[}i{]}，再减去低一字传来的借位。只要有一步不够减，就要向高一字借 1。
+
+\needspace{10\baselineskip}
+
+\textbf{流程：}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  borrow = 0，从 i = 0（最低字）开始。
+\item
+  \texttt{b1\ =\ (A{[}i{]}\ \textless{}\ B{[}i{]})}：A{[}i{]}
+  不够减，要借位。然后算 \texttt{partial\ =\ A{[}i{]}\ -\ B{[}i{]}}。
+\item
+  \texttt{b2\ =\ (partial\ \textless{}\ borrow)}：再减去低一字的借位时不够减，只在
+  partial = 0 且 borrow = 1 时发生。然后算
+  \texttt{Sub{[}i{]}\ =\ partial\ -\ borrow}。
+\item
+  \texttt{borrow\ =\ b1\ \textbar{}\ b2}，把 Sub{[}i{]} 写回，borrow
+  留给下一个字。
+\item
+  i 加 1，重复第 2--4 步，一共 32 次。
+\item
+  返回 borrow：1 表示 A \textless{} B，这时 Sub 里是 (A \ensuremath{-}
+  B) mod 2\textsuperscript{1024}。
+\end{enumerate}
+
+\needspace{10\baselineskip}
+
+\textbf{C 代码：}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{uint32\_t}\NormalTok{ sub1024}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ A}\OperatorTok{,} \DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{B}\OperatorTok{,} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ Sub}\OperatorTok{)\{}
+    \DataTypeTok{uint32\_t}\NormalTok{ borrow }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+    \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{i}\OperatorTok{\textless{}}\DecValTok{32}\OperatorTok{;}\NormalTok{i}\OperatorTok{++)\{}
+\NormalTok{        Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ A}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{{-}}\NormalTok{ B}\OperatorTok{[}\NormalTok{i}\OperatorTok{];}
+        \ControlFlowTok{if}\OperatorTok{(}\NormalTok{A}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{\textless{}}\NormalTok{ B}\OperatorTok{[}\NormalTok{i}\OperatorTok{])\{} \CommentTok{// wrap around automatically, need borrow}
+\NormalTok{            Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{{-}}\NormalTok{ borrow}\OperatorTok{;}
+\NormalTok{            borrow }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+        \OperatorTok{\}}\ControlFlowTok{else}\OperatorTok{\{}
+            \ControlFlowTok{if}\OperatorTok{(}\NormalTok{Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{\textless{}}\NormalTok{ borrow}\OperatorTok{)\{} \CommentTok{// wrap around automatically,need borrow}
+\NormalTok{                Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{{-}}\NormalTok{ borrow}\OperatorTok{;}
+\NormalTok{                borrow }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+            \OperatorTok{\}}\ControlFlowTok{else}\OperatorTok{\{}
+\NormalTok{                Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ Sub}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{{-}}\NormalTok{ borrow}\OperatorTok{;}
+\NormalTok{                borrow }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+            \OperatorTok{\}}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+    \ControlFlowTok{return}\NormalTok{ borrow}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+C 版本同样用 if/else 分情况更新 borrow。汇编里用 \texttt{sltu} 算出
+b1、b2，再按位或得到新的 borrow。
+
+\hypertarget{ux4e58ux6cd5-mul1024ux79fbux4f4dux7d2fux52a0}{%
+\subsection{3.3 乘法
+mul1024：移位累加}\label{ux4e58ux6cd5-mul1024ux79fbux4f4dux7d2fux52a0}}
+
+思路和手算的竖式乘法一样，只是换成二进制。B 的第 k 位如果是 1，就把``A
+左移 k 位''加到结果上；如果是 0，就不加。这些``A 左移 k
+位''叫部分积（partial product），把它们全部加起来就是 A
+\ensuremath{\times} B。
+
+我用一个 64 字的工作数组 T 存``当前左移过的 A''。T 从 A 开始，每看完 B
+的一位就整体左移 1 位，所以看到第 i 位时，T 正好等于 A
+\ensuremath{\times} 2\^{}i。
+
+\needspace{10\baselineskip}
+
+\textbf{流程：}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  初始化：Pro 的 64 个字全部清零；T{[}0..31{]} = A，T{[}32..63{]} = 0。
+\item
+  对 i = 0, 1, \ldots, 1023：
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    取出 B 的第 i 位：这一位在字 \texttt{B{[}i/32{]}} 里，字内位置是
+    \texttt{i\%32}。把这个字右移 \texttt{i\%32} 位，再和 1
+    做按位与。因为 32 是 2 的幂，\texttt{i/32} 用右移 5
+    位算，\texttt{i\%32} 用和 31 按位与算，不需要除法指令。
+  \item
+    如果这一位是 1，就把 T 加到 Pro 上。加法用的是和 add1024
+    一样的两步进位方法，但要加满 64 个字，因为 T 左移后会跑到高 32
+    个字里。
+  \item
+    不管这一位是不是 1，都把 T 整体左移 1 位：每个字左移 1
+    位，再把低一个字的最高位接到本字的最低位，即
+    \texttt{T{[}j{]}\ =\ (T{[}j{]}\ \textless{}\textless{}\ 1)\ \textbar{}\ (T{[}j-1{]}\ \textgreater{}\textgreater{}\ 31)}。这一步要从
+    T{[}63{]} 往 T{[}1{]}
+    做，否则低一字会先被改掉，读到的就不是原来的最高位。最后单独把
+    T{[}0{]} 左移 1 位。
+  \end{enumerate}
+\item
+  返回 0。
+\end{enumerate}
+
+A 和 B 都小于 2\textsuperscript{1024}，所以乘积小于
+2\textsuperscript{2048}，T 左移 1023 次后也不会超出 64 个字，Pro 的 64
+个字一定装得下，不需要溢出标志。
+
+\needspace{10\baselineskip}
+
+\textbf{C 代码：}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{uint32\_t}\NormalTok{ mul1024}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ A}\OperatorTok{,}\DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ B}\OperatorTok{,} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ Pro}\OperatorTok{)\{}
+    \DataTypeTok{uint32\_t}\NormalTok{ T}\OperatorTok{[}\DecValTok{64}\OperatorTok{];}
+    \CommentTok{// Initialize the temporary multiplicand.}
+    \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{i}\OperatorTok{\textless{}}\DecValTok{64}\OperatorTok{;}\NormalTok{i}\OperatorTok{++)\{}
+\NormalTok{        Pro}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+        \ControlFlowTok{if}\OperatorTok{(}\NormalTok{i }\OperatorTok{\textless{}} \DecValTok{32}\OperatorTok{)}\NormalTok{T}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=}\NormalTok{ A}\OperatorTok{[}\NormalTok{i}\OperatorTok{];}
+        \ControlFlowTok{else}\NormalTok{ T}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+    \OperatorTok{\}}
+    \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{i}\OperatorTok{\textless{}}\DecValTok{1024}\OperatorTok{;}\NormalTok{i}\OperatorTok{++)\{}
+        \CommentTok{// Extract the current bit.}
+        \DataTypeTok{uint32\_t}\NormalTok{ bit\_i }\OperatorTok{=} \OperatorTok{(}\NormalTok{B}\OperatorTok{[}\NormalTok{i }\OperatorTok{/} \DecValTok{32}\OperatorTok{]} \OperatorTok{\textgreater{}\textgreater{}} \OperatorTok{(}\NormalTok{i }\OperatorTok{\%} \DecValTok{32}\OperatorTok{))} \OperatorTok{\&} \DecValTok{1}\OperatorTok{;}
+        \ControlFlowTok{if}\OperatorTok{(}\NormalTok{bit\_i}\OperatorTok{)\{}\CommentTok{//Add if the bit is 1.}
+            \DataTypeTok{uint32\_t}\NormalTok{ carry }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+            \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ j }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{j}\OperatorTok{\textless{}}\DecValTok{64}\OperatorTok{;}\NormalTok{j}\OperatorTok{++)\{}
+\NormalTok{                Pro}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{+=}\NormalTok{ T}\OperatorTok{[}\NormalTok{j}\OperatorTok{];}
+                \ControlFlowTok{if}\OperatorTok{(}\NormalTok{Pro}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{\textless{}}\NormalTok{ T}\OperatorTok{[}\NormalTok{j}\OperatorTok{])\{}
+\NormalTok{                    Pro}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{=}\NormalTok{ Pro}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{+}\NormalTok{ carry}\OperatorTok{;}
+\NormalTok{                    carry }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+                \OperatorTok{\}}\ControlFlowTok{else}\OperatorTok{\{}
+\NormalTok{                    Pro}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{+=}\NormalTok{ carry}\OperatorTok{;}
+                    \ControlFlowTok{if}\OperatorTok{(}\NormalTok{Pro}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{\textless{}}\NormalTok{ carry}\OperatorTok{)\{}
+\NormalTok{                        carry }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+                    \OperatorTok{\}}\ControlFlowTok{else}\OperatorTok{\{}
+\NormalTok{                        carry }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+                    \OperatorTok{\}}
+                \OperatorTok{\}}
+            \OperatorTok{\}}
+        \OperatorTok{\}}
+        \CommentTok{//Shift the entire T left by 1 regardless of the bit, equivalent to multiplying by 2.}
+        \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ j }\OperatorTok{=} \DecValTok{63}\OperatorTok{;}\NormalTok{j}\OperatorTok{\textgreater{}}\DecValTok{0}\OperatorTok{;}\NormalTok{j}\OperatorTok{{-}{-})\{}
+\NormalTok{            T}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{=} \OperatorTok{(}\NormalTok{T}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{\textless{}\textless{}} \DecValTok{1}\OperatorTok{)} \OperatorTok{|} \OperatorTok{(}\NormalTok{T}\OperatorTok{[}\NormalTok{j}\OperatorTok{{-}}\DecValTok{1}\OperatorTok{]} \OperatorTok{\textgreater{}\textgreater{}} \DecValTok{31}\OperatorTok{);}
+        \OperatorTok{\}}
+\NormalTok{        T}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{\textless{}\textless{}=} \DecValTok{1}\OperatorTok{;}
+    \OperatorTok{\}}
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+C 里把 T 加到 Pro 上的那段 64 字循环，用的是和 add1024
+一样的进位判断。汇编里把 \texttt{i\ /\ 32} 写成右移 5 位，把
+\texttt{i\ \%\ 32} 写成和 31 按位与；两步进位同样用 \texttt{sltu}
+和按位或来算。
+
+\hypertarget{ux9664ux6cd5-div1024ux6309ux4f4dux957fux9664ux6cd5}{%
+\subsection{3.4 除法
+div1024：按位长除法}\label{ux9664ux6cd5-div1024ux6309ux4f4dux957fux9664ux6cd5}}
+
+思路和手算的竖式除法一样：从被除数的最高位开始，一位一位``落下来''，接在余数后面；余数够减除数，商的这一位就是
+1，并减掉除数；不够减，商的这一位就是 0。
+
+\needspace{10\baselineskip}
+
+\textbf{流程：}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  把 Q 和 R 的 32 个字全部清零，同时把 B 的 32
+  个字按位或起来。如果结果是 0，说明 B = 0：这时 Q 和 R
+  已经清零，直接返回 1。这样除数为 0 时不会进入循环，也就不会死循环。
+\item
+  对 i = 1023, 1022, \ldots, 0（从最高位到最低位）：
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    R 整体左移 1 位，方法和乘法里的 T 一样，从 R{[}31{]} 往 R{[}1{]}
+    做。
+  \item
+    取出 A 的第 i 位，放进 R{[}0{]} 的最低位。这两步合起来就是
+    \texttt{R\ =\ 2R\ +\ A\ 的第\ i\ 位}。
+  \item
+    比较 R 和 B：从最高字 R{[}31{]}、B{[}31{]}
+    开始往下比。两个字相等时，还看不出谁大，要接着比下一个字；遇到第一个不相等的字，就能决定大小。32
+    个字全部相等，说明 R = B，也算够减。
+  \item
+    如果 R \ensuremath{\geq} B：调用 \texttt{sub1024(R,\ B,\ D)}
+    把差放进栈上的临时数组 D，再把 D 复制回 R，并把商的第 i 位置
+    1：\texttt{Q{[}i/32{]}\ \textbar{}=\ 1\ \textless{}\textless{}\ (i\%32)}。之所以要用临时数组
+    D，是因为任务书规定 sub1024
+    的输入和输出缓冲区不重叠，所以我没有让它直接把结果写回 R。
+  \end{enumerate}
+\item
+  返回 0。
+\end{enumerate}
+
+\needspace{10\baselineskip}
+
+\textbf{C 代码：}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DataTypeTok{uint32\_t}\NormalTok{ div1024}\OperatorTok{(}\DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ A}\OperatorTok{,}\DataTypeTok{const} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ B}\OperatorTok{,} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ Q}\OperatorTok{,} \DataTypeTok{uint32\_t}\OperatorTok{*}\NormalTok{ R}\OperatorTok{)\{}
+    \CommentTok{// Use a temporary array to store the subtraction result.}
+    \DataTypeTok{uint32\_t}\NormalTok{ D}\OperatorTok{[}\DecValTok{32}\OperatorTok{];}
+    \CommentTok{// Use zero to check whether the divisor is zero.}
+    \DataTypeTok{int}\NormalTok{ zero }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+    \CommentTok{//Initialize the quotient and remainder.}
+    \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{i}\OperatorTok{\textless{}}\DecValTok{32}\OperatorTok{;}\NormalTok{i}\OperatorTok{++)\{}
+\NormalTok{        Q}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+\NormalTok{        R}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+        \ControlFlowTok{if}\OperatorTok{(}\NormalTok{B}\OperatorTok{[}\NormalTok{i}\OperatorTok{]} \OperatorTok{!=} \DecValTok{0}\OperatorTok{)\{}
+\NormalTok{            zero }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+    \ControlFlowTok{if}\OperatorTok{(}\NormalTok{zero}\OperatorTok{)\{}
+        \ControlFlowTok{return} \DecValTok{1}\OperatorTok{;}
+    \OperatorTok{\}}
+
+    \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{1023}\OperatorTok{;}\NormalTok{i}\OperatorTok{\textgreater{}=}\DecValTok{0}\OperatorTok{;}\NormalTok{i}\OperatorTok{{-}{-})\{}
+        \CommentTok{//Shift R left by 1 and insert the current dividend bit at the low end.}
+        \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ j }\OperatorTok{=} \DecValTok{31}\OperatorTok{;}\NormalTok{j}\OperatorTok{\textgreater{}}\DecValTok{0}\OperatorTok{;}\NormalTok{j}\OperatorTok{{-}{-})\{}
+\NormalTok{            R}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{=} \OperatorTok{(}\NormalTok{R}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{\textless{}\textless{}} \DecValTok{1}\OperatorTok{)} \OperatorTok{|} \OperatorTok{(}\NormalTok{R}\OperatorTok{[}\NormalTok{j}\OperatorTok{{-}}\DecValTok{1}\OperatorTok{]} \OperatorTok{\textgreater{}\textgreater{}} \DecValTok{31}\OperatorTok{);}
+        \OperatorTok{\}}
+\NormalTok{        R}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{=} \OperatorTok{(}\NormalTok{R}\OperatorTok{[}\DecValTok{0}\OperatorTok{]} \OperatorTok{\textless{}\textless{}} \DecValTok{1}\OperatorTok{)} \OperatorTok{|} \OperatorTok{((}\NormalTok{A}\OperatorTok{[}\NormalTok{i}\OperatorTok{/}\DecValTok{32}\OperatorTok{]} \OperatorTok{\textgreater{}\textgreater{}} \OperatorTok{(}\NormalTok{i}\OperatorTok{\%}\DecValTok{32}\OperatorTok{))} \OperatorTok{\&} \DecValTok{1}\OperatorTok{);}
+
+        \CommentTok{//Check whether R is large enough to subtract B.}
+        \DataTypeTok{int}\NormalTok{ greater\_equal }\OperatorTok{=} \DecValTok{1}\OperatorTok{;}
+        \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ j }\OperatorTok{=} \DecValTok{31}\OperatorTok{;}\NormalTok{j}\OperatorTok{\textgreater{}=}\DecValTok{0}\OperatorTok{;}\NormalTok{j}\OperatorTok{{-}{-})\{}
+            \ControlFlowTok{if}\OperatorTok{(}\NormalTok{R}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{\textgreater{}}\NormalTok{ B}\OperatorTok{[}\NormalTok{j}\OperatorTok{])\{}
+                \ControlFlowTok{break}\OperatorTok{;}
+            \OperatorTok{\}}\ControlFlowTok{else} \ControlFlowTok{if}\OperatorTok{(}\NormalTok{R}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{\textless{}}\NormalTok{ B}\OperatorTok{[}\NormalTok{j}\OperatorTok{])\{}
+\NormalTok{                greater\_equal }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}
+                \ControlFlowTok{break}\OperatorTok{;}
+            \OperatorTok{\}}
+        \OperatorTok{\}}
+        \CommentTok{//If subtraction is possible, update the quotient and remainder.}
+        \ControlFlowTok{if}\OperatorTok{(}\NormalTok{greater\_equal}\OperatorTok{)\{}
+            
+\NormalTok{            sub1024}\OperatorTok{(}\NormalTok{R}\OperatorTok{,}\NormalTok{B}\OperatorTok{,}\NormalTok{D}\OperatorTok{);}
+            \ControlFlowTok{for}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ j }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{j}\OperatorTok{\textless{}}\DecValTok{32}\OperatorTok{;}\NormalTok{j}\OperatorTok{++)\{}
+\NormalTok{                R}\OperatorTok{[}\NormalTok{j}\OperatorTok{]} \OperatorTok{=}\NormalTok{ D}\OperatorTok{[}\NormalTok{j}\OperatorTok{];}
+            \OperatorTok{\}}
+\NormalTok{            Q}\OperatorTok{[}\NormalTok{i}\OperatorTok{/}\DecValTok{32}\OperatorTok{]} \OperatorTok{|=} \DecValTok{1}\BuiltInTok{u} \OperatorTok{\textless{}\textless{}} \OperatorTok{(}\NormalTok{i}\OperatorTok{\%}\DecValTok{32}\OperatorTok{);}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+    \ControlFlowTok{return} \DecValTok{0}\OperatorTok{;}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+C 里用 \texttt{zero} 标志判断 B 是否为 0；汇编里把 B 的 32
+个字按位或起来，结果为 0 就说明 B = 0。C 里的 \texttt{greater\_equal}
+标志，在汇编里没有单独存放，而是用两条 \texttt{bltu}
+分支直接跳到``相减''或``跳过''。
+
+\textbf{循环不变量}（loop invariant），就是每一轮结束时都成立的条件。设
+A 的前缀是``A 中已经处理过的那些高位组成的数''，即 A
+\textgreater\textgreater{} i，那么每轮结束时：
+
+\begin{itemize}
+\tightlist
+\item
+  R = (A \textgreater\textgreater{} i) mod B，并且 Q
+  里已经放好的商位组成 \ensuremath{\lfloor}(A \textgreater\textgreater{}
+  i) / B\ensuremath{\rfloor}；
+\item
+  所以 0 \ensuremath{\leq} R \textless{} B。
+\end{itemize}
+
+为什么每轮最多只要减一次？因为上一轮结束时 R \textless{} B，所以新的 R =
+2R + 1 位 \ensuremath{\leq} 2B \ensuremath{-} 1 \textless{} 2B。减一次 B
+之后，R 一定小于 B。
+
+为什么 R 不会超出 32 个字？因为 R 是 A 的前缀除以 B 的余数，所以 R
+不会比这个前缀本身大；而这个前缀最多只有 1024 位。所以 R 一直能放在 32
+个字里，左移时不会丢掉最高位。
+
+i 减到 0 时，A 的前缀就是 A 本身，所以 Q = \ensuremath{\lfloor}A /
+B\ensuremath{\rfloor}，R = A mod B，满足 A = B \ensuremath{\times} Q + R
+且 0 \ensuremath{\leq} R \textless{} B。
+
+\hypertarget{ux6267ux884cux6b21ux6570ux5206ux6790}{%
+\subsection{3.5
+执行次数分析}\label{ux6267ux884cux6b21ux6570ux5206ux6790}}
+
+下面的指令条数是我按代码逐条数出来的（包括 \texttt{ret}）。
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0976}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4512}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4512}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+函数
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+循环次数
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+执行的指令条数
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+add1024 & 1 层，32 次 & 固定 420 条 \\
+sub1024 & 1 层，32 次 & 固定 420 条 \\
+mul1024 & 外层 1024 次；每次里面左移 63 次，若这一位是 1 再累加 64 次 &
+597,712 + 772 \ensuremath{\times} k 条，k 是 B 的二进制里 1 的个数。最少
+597,712（B = 0），最多 1,388,240（B = M） \\
+div1024 & 外层 1024 次；每次里面左移 31 次、比较最多 32 次，够减时再减
+32 个字、复制 32 个字 & 除数为 0 时 344 条；否则 346 +
+\ensuremath{\Sigma}(295 + 比较开销) + 659 \ensuremath{\times} q 条，q
+是商的二进制里 1 的个数，每轮比较开销 5--256 条。M \ensuremath{\div} 1
+时最多，为 1,239,386 条 \\
+\end{longtable}
+
+关键是：乘法和除法的外层都固定循环 1024 次，内层也是固定的 32 或 64
+次，和 A、B 的数值大小无关。所以不会出现``A 连续加 B 次''或``反复减
+B''那种数越大、循环越多的情况，符合任务书的效率要求。
+
+用 RARS 的 Tools \ensuremath{\rightarrow} Instruction Counter
+也可以统计实际执行的指令数，见图 1。
+
+\begin{figure}
+\centering
+\missingshot{images/01-instruction-counter.png}
+\caption{图 1　Instruction Counter 统计的指令数（可选）}
+\end{figure}
+
+\hypertarget{ux56dbux8fd0ux884cux4e0eux6d4bux8bd5ux8bb0ux5f55}{%
+\section{四、运行与测试记录}\label{ux56dbux8fd0ux884cux4e0eux6d4bux8bd5ux8bb0ux5f55}}
+
+\hypertarget{ux8fd0ux884cux65b9ux6cd5}{%
+\subsection{4.1 运行方法}\label{ux8fd0ux884cux65b9ux6cd5}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  在 RARS 中打开 \texttt{bigint1024.s}，确认 Settings 里 64-bit
+  已关闭，然后 Assemble、Run。
+\item
+  默认依次运行第 1--10 组。每组先打印 \texttt{Case\ n}，再打印
+  A、B、Sum、Sub、Pro、Q、R、carry、borrow、status。
+\item
+  每个数按``从高字到低字''打印，每个字是 8
+  位十六进制，和平时写数的顺序一样。比如 Sum 那一行最右边的字是
+  Sum{[}0{]}。
+\item
+  只看某一组时，把 \texttt{first\_case} 和 \texttt{last\_case}
+  都改成这一组的编号。
+\end{enumerate}
+
+\hypertarget{ux8fd0ux884cux7ed3ux679cux622aux56fe}{%
+\subsection{4.2
+运行结果截图}\label{ux8fd0ux884cux7ed3ux679cux622aux56fe}}
+
+图 2 是程序在 RARS 中运行后 Run I/O 窗口的输出。全部 10 组的结果整理在
+4.3 的表格里。
+
+\begin{figure}
+\centering
+\missingshot{images/02-run-io.png}
+\caption{图 2　RARS Run I/O 窗口的运行输出}
+\end{figure}
+
+\hypertarget{ux7ec4ux6570ux636eux7684ux7ed3ux679cux5bf9ux7167}{%
+\subsection{4.3 10
+组数据的结果对照}\label{ux7ec4ux6570ux636eux7684ux7ed3ux679cux5bf9ux7167}}
+
+记 M = 2\textsuperscript{1024} \ensuremath{-} 1，C =
+2\textsuperscript{700} + 123456789。下表``实际结果''来自 RARS
+运行输出，用``非零的字''来写：例如 \texttt{{[}21{]}=0x10000000} 表示第
+21 个字（从 0 数起）是 0x10000000，没列出的字都是 0。
+
+C 的存放方式：700 = 21 \ensuremath{\times} 32 + 28，所以
+2\textsuperscript{700} 是第 21 个字的第 28 位，即
+\texttt{{[}21{]}=0x10000000}；123456789 = 0x075bcd15，在第 0 个字。
+
+\textbf{表 1 加法和减法}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0624}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0732}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0624}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1049}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.2317}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1105}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.2927}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0624}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+编号
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+A
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+B
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+期望 S / carry
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+实际 Sum / carry
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+期望 D / borrow
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+实际 Sub / borrow
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+结论
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & 0 & 1 & 1 / 0 & {[}0{]}=0x00000001 / 0 & M / 1 & 32 个字全为
+0xffffffff / 1 & 一致 \\
+2 & 1 & 0 & 1 / 0 & {[}0{]}=0x00000001 / 0 & 1 / 0 & {[}0{]}=0x00000001
+/ 0 & 一致 \\
+3 & C & C & 2C / 0 & {[}0{]}=0x0eb79a2a，{[}21{]}=0x20000000 / 0 & 0 / 0
+& 全 0 / 0 & 一致 \\
+4 & 100 & 4 & 104 / 0 & {[}0{]}=0x00000068 / 0 & 96 / 0 &
+{[}0{]}=0x00000060 / 0 & 一致 \\
+5 & 100 & 7 & 107 / 0 & {[}0{]}=0x0000006b / 0 & 93 / 0 &
+{[}0{]}=0x0000005d / 0 & 一致 \\
+6 & M & 1 & 0 / 1 & 全 0 / 1 & M\ensuremath{-}1 / 0 &
+{[}0{]}=0xfffffffe，{[}1..31{]}=0xffffffff / 0 & 一致 \\
+7 & 2\textsuperscript{992} & 1 & 2\textsuperscript{992}+1 / 0 &
+{[}0{]}=0x00000001，{[}31{]}=0x00000001 / 0 &
+2\textsuperscript{992}\ensuremath{-}1 / 0 & {[}0..30{]}=0xffffffff / 0 &
+一致 \\
+8 & M & M & M\ensuremath{-}1 / 1 &
+{[}0{]}=0xfffffffe，{[}1..31{]}=0xffffffff / 1 & 0 / 0 & 全 0 / 0 &
+一致 \\
+9 & 5 & 9 & 14 / 0 & {[}0{]}=0x0000000e / 0 & M\ensuremath{-}3 / 1 &
+{[}0{]}=0xfffffffc，{[}1..31{]}=0xffffffff / 1 & 一致 \\
+10 & 2\textsuperscript{1023} & 3 & 2\textsuperscript{1023}+3 / 0 &
+{[}0{]}=0x00000003，{[}31{]}=0x80000000 / 0 &
+2\textsuperscript{1023}\ensuremath{-}3 / 0 &
+{[}0{]}=0xfffffffd，{[}1..30{]}=0xffffffff，{[}31{]}=0x7fffffff / 0 &
+一致 \\
+\end{longtable}
+
+\textbf{表 2 乘法（Pro 共 64 个字）}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0905}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3655}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4535}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0905}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+编号
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+期望 P
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+实际 Pro
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+结论
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & 0 & 64 个字全 0 & 一致 \\
+2 & 0 & 64 个字全 0 & 一致 \\
+3 & C\textsuperscript{2} = 2\textsuperscript{1400} +
+123456789\ensuremath{\times}2\textsuperscript{701} + 15241578750190521 &
+{[}0{]}=0x9738a3b9，{[}1{]}=0x00362622，{[}21{]}=0xa0000000，{[}22{]}=0x00eb79a2，{[}43{]}=0x01000000
+& 一致 \\
+4 & 400 & {[}0{]}=0x00000190 & 一致 \\
+5 & 700 & {[}0{]}=0x000002bc & 一致 \\
+6 & M & {[}0..31{]}=0xffffffff，{[}32..63{]} 全 0 & 一致 \\
+7 & 2\textsuperscript{992} & {[}31{]}=0x00000001 & 一致 \\
+8 & M\textsuperscript{2} = 2\textsuperscript{2048} \ensuremath{-}
+2\textsuperscript{1025} + 1 &
+{[}0{]}=0x00000001，{[}32{]}=0xfffffffe，{[}33..63{]}=0xffffffff &
+一致 \\
+9 & 45 & {[}0{]}=0x0000002d & 一致 \\
+10 & 2\textsuperscript{1024} + 2\textsuperscript{1023} &
+{[}31{]}=0x80000000，{[}32{]}=0x00000001 & 一致 \\
+\end{longtable}
+
+第 3 组的对应关系：2\textsuperscript{1400} 中 1400 = 43
+\ensuremath{\times} 32 + 24，所以是
+\texttt{{[}43{]}=0x01000000}；123456789\ensuremath{\times}2\textsuperscript{701}
+跨在第 21、22 两个字上；15241578750190521 = 0x003626229738a3b9，占第
+0、1 两个字。第 3、8、10 组的乘积都超过了 1024 位，高 32
+个字里确实有非零的值，说明高位没有丢。
+
+\textbf{表 3 除法}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0816}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1341}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2727}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0816}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1829}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1656}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0816}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+编号
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+期望 Q
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+实际 Q
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+期望 R
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+实际 R
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+期望 / 实际 status
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+结论
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & 0 & 全 0 & 0 & 全 0 & 0 / 0 & 一致 \\
+2 & 0 & 全 0 & 0 & 全 0 & 1 / 1 & 一致 \\
+3 & 1 & {[}0{]}=0x00000001 & 0 & 全 0 & 0 / 0 & 一致 \\
+4 & 25 & {[}0{]}=0x00000019 & 0 & 全 0 & 0 / 0 & 一致 \\
+5 & 14 & {[}0{]}=0x0000000e & 2 & {[}0{]}=0x00000002 & 0 / 0 & 一致 \\
+6 & M & 32 个字全为 0xffffffff & 0 & 全 0 & 0 / 0 & 一致 \\
+7 & 2\textsuperscript{992} & {[}31{]}=0x00000001 & 0 & 全 0 & 0 / 0 &
+一致 \\
+8 & 1 & {[}0{]}=0x00000001 & 0 & 全 0 & 0 / 0 & 一致 \\
+9 & 0 & 全 0 & 5 & {[}0{]}=0x00000005 & 0 / 0 & 一致 \\
+10 & (2\textsuperscript{1023}\ensuremath{-}2)/3 &
+{[}0..30{]}=0xaaaaaaaa，{[}31{]}=0x2aaaaaaa & 2 & {[}0{]}=0x00000002 & 0
+/ 0 & 一致 \\
+\end{longtable}
+
+第 10 组：二进制 \texttt{1010…10} 除以 3 的商在十六进制里就是一串
+\texttt{a}，最高字是 \texttt{0x2aaaaaaa}。可以验算：3
+\ensuremath{\times} Q + 2 = 2\textsuperscript{1023}。第 2 组除数为 0，Q
+和 R 的 32 个字都被清成 0，status = 1，也没有死循环。
+
+10 组全部和期望值一致，没有失败项。另外，我用 C
+版本（\texttt{bigint1024.c}）跑了同样的 10 组，输出在
+\texttt{results.txt} 里，和汇编版的结果完全相同。
+
+\hypertarget{ux8f93ux5165ux4fddux6301ux5bc4ux5b58ux5668ux548cux6808ux7684ux68c0ux67e5}{%
+\subsection{4.4
+输入保持、寄存器和栈的检查}\label{ux8f93ux5165ux4fddux6301ux5bc4ux5b58ux5668ux548cux6808ux7684ux68c0ux67e5}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{输入保持不变}：main 在四个函数全部算完之后才打印 A 和
+  B，打印出来的 A、B 和 \texttt{load\_case} 放进去的值相同（见 4.3
+  的输入列和截图）。所以四个函数都没有改动输入。
+\item
+  \textbf{输出写全}：输出缓冲区开始前都填了 \texttt{0xa5a5a5a5}，10
+  组的输出里都没有再出现这个值，所以每个输出字都被函数写过。乘法 64
+  个字都打印出来了，包括高位的 0。
+\item
+  \textbf{寄存器和栈恢复}：s0
+  存着用例编号，要跨过全部函数调用。如果哪个函数改坏了
+  s0，用例编号就会乱掉；实际运行中 10 组按 1 到 10
+  的顺序完整跑完。另外，我在 main 里调用 div1024 的前后各停一次，比较 sp
+  和 s0--s4（图 3a、3b）。两张图里 sp 都是 0x7fffeff0，s0--s4
+  也完全相同。div1024 内部会把 s0--s4 改成各数组的地址，sp 也会减去
+  160，但返回前都恢复了。图 3c 是 mul1024 返回后的寄存器，a0 = 0。
+\end{enumerate}
+
+\begin{figure}
+\centering
+\missingshot{images/03a-before-div.png}
+\caption{图 3a　调用 div1024 之前的寄存器}
+\end{figure}
+
+\begin{figure}
+\centering
+\missingshot{images/03b-after-div.png}
+\caption{图 3b　div1024 返回之后的寄存器}
+\end{figure}
+
+\begin{figure}
+\centering
+\missingshot{images/03c-after-mul.png}
+\caption{图 3c　mul1024 返回后 a0 = 0}
+\end{figure}
+
+\hypertarget{ux4e94ux8c03ux8bd5ux8bc1ux636e}{%
+\section{五、调试证据}\label{ux4e94ux8c03ux8bd5ux8bc1ux636e}}
+
+\begin{quote}
+以下四张截图都只运行一组：先把 \texttt{first\_case} 和
+\texttt{last\_case} 改成同一个编号，再 Assemble，然后在 Execute
+窗口中勾选断点。
+\end{quote}
+
+\hypertarget{ux8de8ux5b57ux8fdbux4f4dux7b2c-6-ux7ec4m-1}{%
+\subsection{5.1 跨字进位（第 6 组，M +
+1）}\label{ux8de8ux5b57ux8fdbux4f4dux7b2c-6-ux7ec4m-1}}
+
+断点：add1024 里 \texttt{sw\ t2,\ 0(a2)}
+这一行（\texttt{\#\ write\ Sum{[}i{]}}）。
+
+\begin{figure}
+\centering
+\missingshot{images/04a-add-carry-1.png}
+\caption{图 4a　第 1 次停下（i = 0）}
+\end{figure}
+
+\begin{figure}
+\centering
+\missingshot{images/04b-add-carry-2.png}
+\caption{图 4b　第 2 次停下（i = 1）}
+\end{figure}
+
+两次停下时的寄存器值：
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2006}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1787}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1897}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1318}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1318}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1674}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t2（Sum{[}i{]}）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t3（partial）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t4（c1）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t5（c2）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t1（carry）
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+第 1 次（i=0） & 0x00000000 & 0x00000000 & 1 & 0 & 1 \\
+第 2 次（i=1） & 0x00000000 & 0xffffffff & 0 & 1 & 1 \\
+\end{longtable}
+
+说明：第 0 个字是 \texttt{0xffffffff\ +\ 1}，第一步就回绕成 0，所以 c1 =
+1。第 1 个字是
+\texttt{0xffffffff\ +\ 0}，第一步没有进位；但再加上传上来的 carry = 1
+时回绕，所以这次是 c2 =
+1。这说明进位确实从低字传到了高字，而且两步的进位都要检查。这个进位一直传到最高字，最后
+carry = 1，Sum 全是 0。
+
+\hypertarget{ux8de8ux5b57ux501fux4f4dux7b2c-1-ux7ec40-1}{%
+\subsection{\texorpdfstring{5.2 跨字借位（第 1 组，0 \ensuremath{-}
+1）}{5.2 跨字借位（第 1 组，0  1）}}\label{ux8de8ux5b57ux501fux4f4dux7b2c-1-ux7ec40-1}}
+
+断点：sub1024 里 \texttt{sw\ t2,\ 0(a2)}
+这一行（\texttt{\#\ write\ Sub{[}i{]}}）。
+
+\begin{figure}
+\centering
+\missingshot{images/05a-sub-borrow-1.png}
+\caption{图 5a　第 1 次停下（i = 0）}
+\end{figure}
+
+\begin{figure}
+\centering
+\missingshot{images/05b-sub-borrow-2.png}
+\caption{图 5b　第 2 次停下（i = 1）}
+\end{figure}
+
+两次停下时的寄存器值：
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2441}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2175}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1605}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1605}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2175}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t2（Sub{[}i{]}）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t4（b1）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t5（b2）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+t1（borrow）
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+第 1 次（i=0） & 0xffffffff & 1 & 0 & 1 \\
+第 2 次（i=1） & 0xffffffff & 0 & 1 & 1 \\
+\end{longtable}
+
+说明：第 0 个字 0 \ensuremath{-} 1 不够减，b1 = 1，结果回绕成
+\texttt{0xffffffff}。第 1 个字 0 \ensuremath{-} 0 本身够减，b1 =
+0；但还要减去低字的借位 1，又不够减，所以 b2 =
+1。借位就这样一直传到最高字，最后 borrow = 1，Sub 的 32 个字全是
+\texttt{0xffffffff}，也就是 M。
+
+\hypertarget{ux4e58ux6cd5ux5411ux9ad8ux4f4dux4f20ux64adux7b2c-10-ux7ec421023-3}{%
+\subsection{\texorpdfstring{5.3 乘法向高位传播（第 10
+组，2\textsuperscript{1023} \ensuremath{\times}
+3）}{5.3 乘法向高位传播（第 10 组，21023  3）}}\label{ux4e58ux6cd5ux5411ux9ad8ux4f4dux4f20ux64adux7b2c-10-ux7ec421023-3}}
+
+断点：mul1024 里 \texttt{addi\ s2,\ s2,\ 1}
+这一行（\texttt{\#\ i++}），它在每轮左移 T 之后执行。
+
+T 在栈上，T{[}31{]}、T{[}32{]} 分别在 sp+124、sp+128，按 RARS 默认设置是
+0x7fffef5c、0x7fffef60；Pro{[}31{]}、Pro{[}32{]} 在
+0x10010284、0x10010288。
+
+\begin{figure}
+\centering
+\missingshot{images/06a-mul-high-1.png}
+\caption{图 6a　第 1 次停下（i = 0 结束）}
+\end{figure}
+
+\begin{figure}
+\centering
+\missingshot{images/06b-mul-high-2.png}
+\caption{图 6b　第 2 次停下（i = 1 结束）}
+\end{figure}
+
+两次停下时的内存值：
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2880}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1780}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1780}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1780}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1780}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+T{[}31{]}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+T{[}32{]}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pro{[}31{]}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pro{[}32{]}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+第 1 次（i=0 结束） & 0x00000000 & 0x00000001 & 0x80000000 &
+0x00000000 \\
+第 2 次（i=1 结束） & 0x00000000 & 0x00000002 & 0x80000000 &
+0x00000001 \\
+\end{longtable}
+
+说明：A = 2\textsuperscript{1023}，所以 T 一开始只有 T{[}31{]}
+的最高位是 1。B = 3 的第 0 位是 1，于是先把 T 加到 Pro 上，Pro{[}31{]} =
+0x80000000。然后 T 左移 1 位，T{[}31{]} 的最高位移进了 T{[}32{]}
+的最低位，T 变成 2\textsuperscript{1024}，已经超出了前 32 个字。第 1
+位也是 1，再加一次 T，Pro{[}32{]} = 1。所以最后 Pro =
+2\textsuperscript{1024} + 2\textsuperscript{1023}，高位确实写进了 Pro
+的后 32 个字。
+
+\hypertarget{ux9664ux6cd5ux7684ux5173ux952eux72b6ux6001ux7b2c-5-ux7ec4100-7}{%
+\subsection{\texorpdfstring{5.4 除法的关键状态（第 5 组，100
+\ensuremath{\div}
+7）}{5.4 除法的关键状态（第 5 组，100  7）}}\label{ux9664ux6cd5ux7684ux5173ux952eux72b6ux6001ux7b2c-5-ux7ec4100-7}}
+
+断点：div1024 里 \texttt{jal\ ra,\ sub1024}
+这一行（\texttt{\#\ sub1024(R,\ B,\ D);}），只有 R \ensuremath{\geq} B
+时才会走到这里。
+
+R{[}0{]} 在 0x10010388，Q{[}0{]} 在 0x10010308。
+
+\begin{figure}
+\centering
+\missingshot{images/07a-div-1.png}
+\caption{图 7a　第 1 次停下}
+\end{figure}
+
+\begin{figure}
+\centering
+\missingshot{images/07b-div-2.png}
+\caption{图 7b　第 2 次停下}
+\end{figure}
+
+\begin{figure}
+\centering
+\missingshot{images/07c-div-3.png}
+\caption{图 7c　第 3 次停下}
+\end{figure}
+
+100 的二进制是 \texttt{1100100}，第 6、5、2 位是 1。前三次停下时的值：
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1936}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1936}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3599}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2530}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+s4（i）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R{[}0{]}（减之前）
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Q{[}0{]}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+第 1 次 & 3 & 0x0000000c（12） & 0x00000000 \\
+第 2 次 & 2 & 0x0000000b（11） & 0x00000008 \\
+第 3 次 & 1 & 0x00000008（8） & 0x0000000c \\
+\end{longtable}
+
+说明：i 从 1023 到 7 时，落下来的位都是 0，R 一直是 0。i = 6、5、4 时，R
+依次变成 1、3、6，都小于 7，不用减，所以断点不会停。i = 3 时 R = 12
+\ensuremath{\geq} 7，第一次停下；减完后 R = 5，Q 的第 3 位置 1。下一轮 R
+= 2 \ensuremath{\times} 5 + 1 = 11，又够减，减完 R = 4，Q 的第 2 位置
+1，Q{[}0{]} 变成 0x0000000c。以此类推，最后 Q = 14（0xe），R = 2，满足
+100 = 7 \ensuremath{\times} 14 + 2，而且每轮减完都有 R \textless{} 7。
+
+\hypertarget{ux516dux603bux7ed3}{%
+\section{六、总结}\label{ux516dux603bux7ed3}}
+
+\hypertarget{ux9047ux5230ux7684ux95eeux9898ux548cux89e3ux51b3ux529eux6cd5}{%
+\subsection{6.1
+遇到的问题和解决办法}\label{ux9047ux5230ux7684ux95eeux9898ux548cux89e3ux51b3ux529eux6cd5}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{加法：不会判断进位。}
+  一开始我觉得两个非负数相加，结果不会比原来的数小，所以不理解``结果变小就是进位''这个判断。后来通过算例弄懂了回绕：比如
+  \texttt{0xffffffff\ +\ 1} 只留下
+  0。我还发现加上进位这一步也可能回绕，所以两步要分别检查。另外，我曾经先更新
+  carry 再把它加进本字，旧的进位就被覆盖了；后来调整了先后顺序。
+\item
+  \textbf{减法：借位方向。}
+  一开始我按纸上竖式的习惯，想在本位不够减时往高位找可以借的位，再去改中间的位。这样流程很复杂，还会修改输入数组，不符合要求。后来我明白，只需要记一个
+  borrow，让下一个字多减 1 就行，不用真的去改高位的输入。
+\item
+  \textbf{乘法：宽度和移位。}
+  一开始我没有分清输入和乘积的宽度，想直接用只处理 32 个字的 add1024
+  来累加乘积，结果高 32 个字和跨界的进位都没有处理。后来我把累加扩展到
+  64 个字。我还曾把数组元素整体挪动一格当作左移一位，其实那是乘以
+  2\textsuperscript{32}；正确做法是每个字左移 1
+  位，再接上低字的最高位。另外，我曾把移位放在了循环外面，T
+  没有每轮翻倍，后来移回了循环里面。取 B 的第 k
+  位时，我也曾搞混过移位方向。
+\item
+  \textbf{除法：比较和移位。} 从高字往低字比较时，我曾在两个字相等时就用
+  \texttt{\textgreater{}=}
+  提前下结论。其实高字相等时还要继续比下一个字，只有遇到不相等的字才能决定大小。另外，余数要整体左移一位再放入新的位，处理顺序要从高字到低字。
+\item
+  \textbf{从 C 改写成汇编。} C
+  里由编译器处理的事情，在汇编里都要自己安排：数组地址要乘 4，数据要用
+  \texttt{.align\ 2} 对齐，栈帧大小要算清楚，用过的 s
+  寄存器要保存恢复，除法调用 sub1024 前还要保存
+  ra。返回前必须先取回寄存器，再把 sp 加回去。
+\end{enumerate}
+
+程序能正确运行之后，我又整理了代码：给关键指令加了对应 C
+表达式的注释，按步骤用空行分段，删减了重复的段首说明，并把除法的返回值统一命名为
+\texttt{status}，和任务书的说法一致。
+
+\hypertarget{ux4ecdux5b58ux5728ux7684ux4e0dux8db3}{%
+\subsection{6.2
+仍存在的不足}\label{ux4ecdux5b58ux5728ux7684ux4e0dux8db3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{乘法和除法都是逐位处理的}，每次调用要执行几十万到一百多万条指令（见
+  3.5），在 RARS 里一次跑完 10 组要等一会儿。乘法里最费时的是每轮都把 64
+  个字的 T 整体左移一次（每轮 575 条）；如果改成按位偏移直接把 A 加到
+  Pro 的对应位置，就能省掉这一步，但代码会复杂很多。
+\item
+  \textbf{除法每次够减都要先把差写进 D，再复制回 R}，每次多出 226
+  条复制指令。这是为了遵守``缓冲区不重叠''的约定；如果专门写一个原地相减的函数，就能省掉复制。
+\item
+  \textbf{main 没有检查用例编号的范围。} 如果 \texttt{first\_case} 或
+  \texttt{last\_case} 填成 1--10 以外的数，\texttt{load\_case} 会按第 10
+  组处理，不会报错。
+\item
+  \textbf{结果只按十六进制打印}，没有转成十进制。任务书不要求十进制输出，但对照大数时要手动换算。
+\item
+  \textbf{寄存器和栈的恢复是靠断点和寄存器窗口人工检查的}，程序本身没有自动比较调用前后的值。
+\end{enumerate}
+
+\hypertarget{ux9644ux5f55ux6e90ux7a0bux5e8f-bigint1024.s}{%
+\section{附录：源程序
+bigint1024.s}\label{ux9644ux5f55ux6e90ux7a0bux5e8f-bigint1024.s}}
+
+以下为提交的完整源程序，和提交包中的 \texttt{bigint1024.s} 相同。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Using RARS 1.6 / RV32I}
+
+
+\KeywordTok{.data}
+\KeywordTok{.align} \DecValTok{2} \CommentTok{\# 4{-}byte alignment.}
+\FunctionTok{first\_case:} \KeywordTok{.word} \DecValTok{1}
+\FunctionTok{last\_case:}  \KeywordTok{.word} \DecValTok{10}
+\CommentTok{\# uint32\_t A[32], B[32], Sum[32], Sub[32], Pro[64], Q[32], R[32];}
+\FunctionTok{A:}          \KeywordTok{.space} \DecValTok{128}
+\FunctionTok{B:}          \KeywordTok{.space} \DecValTok{128}
+\FunctionTok{Sum:}        \KeywordTok{.space} \DecValTok{128}
+\FunctionTok{Sub:}        \KeywordTok{.space} \DecValTok{128}
+\FunctionTok{Pro:}        \KeywordTok{.space} \DecValTok{256}
+\FunctionTok{Q:}          \KeywordTok{.space} \DecValTok{128}
+\FunctionTok{R:}          \KeywordTok{.space} \DecValTok{128}
+
+\CommentTok{\# Return values saved by main: add carry, sub borrow, div status.}
+\FunctionTok{carry:}      \KeywordTok{.word} \DecValTok{0}
+\FunctionTok{borrow:}     \KeywordTok{.word} \DecValTok{0}
+\FunctionTok{status:}     \KeywordTok{.word} \DecValTok{0}
+
+\CommentTok{\# Output strings for printing.}
+\FunctionTok{case\_text:}  \KeywordTok{.asciz} \StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Case "}
+\FunctionTok{newline:}    \KeywordTok{.asciz} \StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}
+\FunctionTok{space:}      \KeywordTok{.asciz} \StringTok{" "}
+\FunctionTok{a\_text:}     \KeywordTok{.asciz} \StringTok{"A: "}
+\FunctionTok{b\_text:}     \KeywordTok{.asciz} \StringTok{"B: "}
+\FunctionTok{sum\_text:}   \KeywordTok{.asciz} \StringTok{"Sum: "}
+\FunctionTok{sub\_text:}   \KeywordTok{.asciz} \StringTok{"Sub: "}
+\FunctionTok{pro\_text:}   \KeywordTok{.asciz} \StringTok{"Pro: "}
+\FunctionTok{q\_text:}     \KeywordTok{.asciz} \StringTok{"Q: "}
+\FunctionTok{r\_text:}     \KeywordTok{.asciz} \StringTok{"R: "}
+\FunctionTok{carry\_text:} \KeywordTok{.asciz} \StringTok{"carry: "}
+\FunctionTok{borrow\_text:} \KeywordTok{.asciz} \StringTok{"borrow: "}
+\FunctionTok{status\_text:} \KeywordTok{.asciz} \StringTok{"status: "}
+
+\KeywordTok{.text}
+\KeywordTok{.globl}\NormalTok{ main}
+\KeywordTok{.globl}\NormalTok{ add1024}
+\KeywordTok{.globl}\NormalTok{ sub1024}
+\KeywordTok{.globl}\NormalTok{ mul1024}
+\KeywordTok{.globl}\NormalTok{ div1024}
+
+
+\CommentTok{\# main: run cases first\_case..last\_case; s0 = current case (kept across calls).}
+\FunctionTok{main:}
+    \CommentTok{\# Align the initial RARS stack pointer to 16 bytes.}
+\NormalTok{    andi }\KeywordTok{sp}\OperatorTok{,} \KeywordTok{sp}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{16}
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ first\_case}
+\NormalTok{    lw s0}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\FunctionTok{main\_case:}
+\NormalTok{    mv a0}\OperatorTok{,}\NormalTok{ s0}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ load\_case}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ A}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ B}
+\NormalTok{    la a2}\OperatorTok{,}\NormalTok{ Sum}
+    \CommentTok{\# carry = add1024(A, B, Sum);}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ add1024}
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ carry}
+\NormalTok{    sw a0}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ A}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ B}
+\NormalTok{    la a2}\OperatorTok{,}\NormalTok{ Sub}
+    \CommentTok{\# borrow = sub1024(A, B, Sub);}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ sub1024}
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ borrow}
+\NormalTok{    sw a0}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ A}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ B}
+\NormalTok{    la a2}\OperatorTok{,}\NormalTok{ Pro}
+    \CommentTok{\# mul1024(A, B, Pro); always returns 0, so a0 is not saved.}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ mul1024}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ A}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ B}
+\NormalTok{    la a2}\OperatorTok{,}\NormalTok{ Q}
+\NormalTok{    la a3}\OperatorTok{,}\NormalTok{ R}
+    \CommentTok{\# status = div1024(A, B, Q, R);}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ div1024}
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ status}
+\NormalTok{    sw a0}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+
+    \CommentTok{\# printf("\textbackslash{}nCase \%d\textbackslash{}n", test);}
+    \CommentTok{\# only print and main use ecall}
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ case\_text}
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{4}                  \CommentTok{\# print string}
+\NormalTok{    ecall}
+\NormalTok{    mv a0}\OperatorTok{,}\NormalTok{ s0}
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{1}                  \CommentTok{\# print integer}
+\NormalTok{    ecall}
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ newline}
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{4}                  \CommentTok{\# print string}
+\NormalTok{    ecall}
+    \CommentTok{\# print\_words(name, \&X, word count) for every input and result.}
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ a\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ A}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ b\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ B}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ sum\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ Sum}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ sub\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ Sub}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ pro\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ Pro}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{64}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ q\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ Q}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ r\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ R}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ carry\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ carry}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ borrow\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ borrow}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ status\_text}
+\NormalTok{    la a1}\OperatorTok{,}\NormalTok{ status}
+\NormalTok{    li a2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ print\_words}
+
+\NormalTok{    addi s0}\OperatorTok{,}\NormalTok{ s0}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ last\_case}
+\NormalTok{    lw t0}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    bge t0}\OperatorTok{,}\NormalTok{ s0}\OperatorTok{,}\NormalTok{ main\_case}
+
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{10}                 \CommentTok{\# exit}
+\NormalTok{    ecall}
+
+\CommentTok{\# add1024: a0=\&A, a1=\&B, a2=\&Sum; returns carry in a0. Leaf, no stack frame.}
+\CommentTok{\# t0 = words left, t1 = carry.}
+\FunctionTok{add1024:}
+\NormalTok{    li t0}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    li t1}\OperatorTok{,} \DecValTok{0}
+
+\CommentTok{\# for(int i=0; i\textless{}32; i++)}
+\FunctionTok{add\_loop:}
+\NormalTok{    lw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{a0}\OperatorTok{)}              \CommentTok{\# t2 = A[i]}
+\NormalTok{    lw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{a1}\OperatorTok{)}              \CommentTok{\# t3 = B[i]}
+\NormalTok{    add t3}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t3            }\CommentTok{\# partial = A[i] + B[i]}
+\NormalTok{    sltu t4}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ t2           }\CommentTok{\# c1 = (partial \textless{} A[i])}
+\NormalTok{    add t2}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ t1            }\CommentTok{\# Sum[i] = partial + carry}
+\NormalTok{    sltu t5}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t3           }\CommentTok{\# c2 = (Sum[i] \textless{} partial)}
+    \KeywordTok{or}\NormalTok{ t1}\OperatorTok{,}\NormalTok{ t4}\OperatorTok{,}\NormalTok{ t5             }\CommentTok{\# carry = c1 | c2}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{a2}\OperatorTok{)}              \CommentTok{\# write Sum[i]}
+\NormalTok{    addi a0}\OperatorTok{,}\NormalTok{ a0}\OperatorTok{,} \DecValTok{4}            \CommentTok{\# i++: advance \&A[i], \&B[i], \&Sum[i]}
+\NormalTok{    addi a1}\OperatorTok{,}\NormalTok{ a1}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi a2}\OperatorTok{,}\NormalTok{ a2}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t0}\OperatorTok{,}\NormalTok{ add\_loop         }\CommentTok{\# while(i \textless{} 32)}
+
+\NormalTok{    mv a0}\OperatorTok{,}\NormalTok{ t1                 }\CommentTok{\# return carry;}
+    \KeywordTok{ret}
+
+\CommentTok{\# sub1024: a0=\&A, a1=\&B, a2=\&Sub; returns borrow in a0. Leaf, no stack frame.}
+\CommentTok{\# t0 = words left, t1 = borrow.}
+\FunctionTok{sub1024:}
+\NormalTok{    li t0}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    li t1}\OperatorTok{,} \DecValTok{0}
+
+\CommentTok{\# for(int i=0; i\textless{}32; i++)}
+\FunctionTok{sub\_loop:}
+\NormalTok{    lw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{a0}\OperatorTok{)}              \CommentTok{\# t2 = A[i]}
+\NormalTok{    lw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{a1}\OperatorTok{)}              \CommentTok{\# t3 = B[i]}
+\NormalTok{    sltu t4}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t3           }\CommentTok{\# b1 = (A[i] \textless{} B[i])}
+    \KeywordTok{sub}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t3            }\CommentTok{\# partial = A[i] {-} B[i]}
+\NormalTok{    sltu t5}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t1           }\CommentTok{\# b2 = (partial \textless{} borrow)}
+    \KeywordTok{sub}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t1            }\CommentTok{\# Sub[i] = partial {-} borrow}
+    \KeywordTok{or}\NormalTok{ t1}\OperatorTok{,}\NormalTok{ t4}\OperatorTok{,}\NormalTok{ t5             }\CommentTok{\# borrow = b1 | b2}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{a2}\OperatorTok{)}              \CommentTok{\# write Sub[i]}
+\NormalTok{    addi a0}\OperatorTok{,}\NormalTok{ a0}\OperatorTok{,} \DecValTok{4}            \CommentTok{\# i++: advance \&A[i], \&B[i], \&Sub[i]}
+\NormalTok{    addi a1}\OperatorTok{,}\NormalTok{ a1}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi a2}\OperatorTok{,}\NormalTok{ a2}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t0}\OperatorTok{,}\NormalTok{ sub\_loop         }\CommentTok{\# while(i \textless{} 32)}
+
+\NormalTok{    mv a0}\OperatorTok{,}\NormalTok{ t1                 }\CommentTok{\# return borrow;}
+    \KeywordTok{ret}
+
+\CommentTok{\# mul1024: a0=\&A, a1=\&B, a2=\&Pro; returns 0. Leaf.}
+\CommentTok{\# s0 = \&B, s1 = \&Pro, s2 = i (bit index of B).}
+\CommentTok{\# Frame 272 bytes: T[64] at sp+0..255, s0{-}s2 at sp+256..264.}
+\FunctionTok{mul1024:}
+\NormalTok{    addi }\KeywordTok{sp}\OperatorTok{,} \KeywordTok{sp}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{272}
+\NormalTok{    sw s0}\OperatorTok{,} \DecValTok{256}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    sw s1}\OperatorTok{,} \DecValTok{260}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    sw s2}\OperatorTok{,} \DecValTok{264}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+
+\NormalTok{    mv s0}\OperatorTok{,}\NormalTok{ a1                 }\CommentTok{\# s0 = B}
+\NormalTok{    mv s1}\OperatorTok{,}\NormalTok{ a2                 }\CommentTok{\# s1 = Pro}
+\NormalTok{    li s2}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# i = 0 (bit index of B)}
+\NormalTok{    li t0}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# j = 0}
+\NormalTok{    mv t1}\OperatorTok{,} \KeywordTok{sp}                 \CommentTok{\# t1 = \&T[0]}
+\NormalTok{    mv t2}\OperatorTok{,}\NormalTok{ a2                 }\CommentTok{\# t2 = \&Pro[0]}
+
+\CommentTok{\# for(int j=0; j\textless{}64; j++)}
+\FunctionTok{mul\_init:}
+\NormalTok{    sw zero}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t2}\OperatorTok{)}            \CommentTok{\# Pro[j] = 0}
+\NormalTok{    li t3}\OperatorTok{,} \DecValTok{32}
+\NormalTok{    bge t0}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ mul\_init\_high }\CommentTok{\# if(j \textgreater{}= 32) T[j] = 0}
+\NormalTok{    lw t4}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{a0}\OperatorTok{)}              \CommentTok{\# else T[j] = A[j]}
+\NormalTok{    addi a0}\OperatorTok{,}\NormalTok{ a0}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    j mul\_init\_store}
+\FunctionTok{mul\_init\_high:}
+\NormalTok{    li t4}\OperatorTok{,} \DecValTok{0}
+\FunctionTok{mul\_init\_store:}
+\NormalTok{    sw t4}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}              \CommentTok{\# write T[j]}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{1}            \CommentTok{\# j++}
+\NormalTok{    li t3}\OperatorTok{,} \DecValTok{64}
+\NormalTok{    blt t0}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ mul\_init      }\CommentTok{\# while(j \textless{} 64)}
+
+\CommentTok{\# for(int i=0; i\textless{}1024; i++)}
+\FunctionTok{mul\_bit:}
+\NormalTok{    srli t0}\OperatorTok{,}\NormalTok{ s2}\OperatorTok{,} \DecValTok{5}            \CommentTok{\# i / 32}
+\NormalTok{    slli t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{2}            \CommentTok{\# byte offset 4*(i/32)}
+\NormalTok{    add t0}\OperatorTok{,}\NormalTok{ s0}\OperatorTok{,}\NormalTok{ t0            }\CommentTok{\# \&B[i/32]}
+\NormalTok{    lw t1}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}              \CommentTok{\# B[i/32]}
+\NormalTok{    andi t2}\OperatorTok{,}\NormalTok{ s2}\OperatorTok{,} \DecValTok{31}           \CommentTok{\# i \% 32}
+\NormalTok{    srl t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,}\NormalTok{ t2            }\CommentTok{\# B[i/32] \textgreater{}\textgreater{} (i\%32)}
+\NormalTok{    andi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \DecValTok{1}            \CommentTok{\# bit\_i = ... \& 1u}
+\NormalTok{    beqz t1}\OperatorTok{,}\NormalTok{ mul\_shift        }\CommentTok{\# if(!bit\_i) skip addition;}
+
+\NormalTok{    mv t0}\OperatorTok{,}\NormalTok{ s1                 }\CommentTok{\# t0 = \&Pro[0]}
+\NormalTok{    mv t1}\OperatorTok{,} \KeywordTok{sp}                 \CommentTok{\# t1 = \&T[0]}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{64}                 \CommentTok{\# 64 words to add}
+\NormalTok{    li t3}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# carry = 0}
+\CommentTok{\# if(bit\_i) Pro += T over 64 words; t3 = carry.}
+\FunctionTok{mul\_add:}
+\NormalTok{    lw t4}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}              \CommentTok{\# t4 = Pro[j]}
+\NormalTok{    lw t5}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}              \CommentTok{\# t5 = T[j]}
+\NormalTok{    add t6}\OperatorTok{,}\NormalTok{ t4}\OperatorTok{,}\NormalTok{ t5            }\CommentTok{\# partial = Pro[j] + T[j]}
+\NormalTok{    sltu a3}\OperatorTok{,}\NormalTok{ t6}\OperatorTok{,}\NormalTok{ t4           }\CommentTok{\# c1 = (partial \textless{} Pro[j])}
+\NormalTok{    add t4}\OperatorTok{,}\NormalTok{ t6}\OperatorTok{,}\NormalTok{ t3            }\CommentTok{\# Pro[j] = partial + carry}
+\NormalTok{    sltu a4}\OperatorTok{,}\NormalTok{ t4}\OperatorTok{,}\NormalTok{ t6           }\CommentTok{\# c2 = (Pro[j] \textless{} partial)}
+    \KeywordTok{or}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ a3}\OperatorTok{,}\NormalTok{ a4             }\CommentTok{\# carry = c1 | c2}
+\NormalTok{    sw t4}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}              \CommentTok{\# write Pro[j]}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{4}            \CommentTok{\# j++}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t2}\OperatorTok{,}\NormalTok{ mul\_add          }\CommentTok{\# while(j \textless{} 64)}
+
+\CommentTok{\# T \textless{}\textless{}= 1 over 64 words, high word first: for(int j=63; j\textgreater{}0; j{-}{-})}
+\FunctionTok{mul\_shift:}
+\NormalTok{    addi t0}\OperatorTok{,} \KeywordTok{sp}\OperatorTok{,} \DecValTok{252}          \CommentTok{\# t0 = \&T[63]}
+\NormalTok{    li t1}\OperatorTok{,} \DecValTok{63}                 \CommentTok{\# j = 63}
+\FunctionTok{mul\_shift\_loop:}
+\NormalTok{    lw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}              \CommentTok{\# T[j]}
+\NormalTok{    lw t3}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{4}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}             \CommentTok{\# T[j{-}1]}
+\NormalTok{    slli t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,} \DecValTok{1}            \CommentTok{\# T[j] \textless{}\textless{} 1}
+\NormalTok{    srli t3}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,} \DecValTok{31}           \CommentTok{\# T[j{-}1] \textgreater{}\textgreater{} 31: bit moving up}
+    \KeywordTok{or}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t3             }\CommentTok{\# T[j] = (T[j]\textless{}\textless{}1) | (T[j{-}1]\textgreater{}\textgreater{}31)}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{4}           \CommentTok{\# j{-}{-}}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t1}\OperatorTok{,}\NormalTok{ mul\_shift\_loop   }\CommentTok{\# while(j \textgreater{} 0)}
+
+\NormalTok{    lw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}              \CommentTok{\# T[0] \textless{}\textless{}= 1}
+\NormalTok{    slli t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+
+\NormalTok{    addi s2}\OperatorTok{,}\NormalTok{ s2}\OperatorTok{,} \DecValTok{1}            \CommentTok{\# i++}
+\NormalTok{    li t0}\OperatorTok{,} \DecValTok{1024}
+\NormalTok{    blt s2}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,}\NormalTok{ mul\_bit       }\CommentTok{\# while(i \textless{} 1024)}
+
+    \CommentTok{\# Restore s0{-}s2 and release the frame.}
+\NormalTok{    lw s0}\OperatorTok{,} \DecValTok{256}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    lw s1}\OperatorTok{,} \DecValTok{260}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    lw s2}\OperatorTok{,} \DecValTok{264}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    addi }\KeywordTok{sp}\OperatorTok{,} \KeywordTok{sp}\OperatorTok{,} \DecValTok{272}
+\NormalTok{    li a0}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# return 0;}
+    \KeywordTok{ret}
+
+\CommentTok{\# div1024: a0=\&A, a1=\&B, a2=\&Q, a3=\&R; returns 0, or 1 if B==0 (Q=R=0).}
+\CommentTok{\# s0 = \&A, s1 = \&B, s2 = \&Q, s3 = \&R, s4 = i (bit index of A).}
+\CommentTok{\# Frame 160 bytes: D[32] at sp+0..127, s0{-}s4 at sp+128..144, ra at sp+148.}
+\CommentTok{\# Invariant: R \textless{} B and R \textless{}= processed prefix of A, so 2R+bit fits in 32 words.}
+\FunctionTok{div1024:}
+\NormalTok{    addi }\KeywordTok{sp}\OperatorTok{,} \KeywordTok{sp}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{160}
+\NormalTok{    sw s0}\OperatorTok{,} \DecValTok{128}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    sw s1}\OperatorTok{,} \DecValTok{132}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    sw s2}\OperatorTok{,} \DecValTok{136}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    sw s3}\OperatorTok{,} \DecValTok{140}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    sw s4}\OperatorTok{,} \DecValTok{144}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    sw ra}\OperatorTok{,} \DecValTok{148}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+
+\NormalTok{    mv s0}\OperatorTok{,}\NormalTok{ a0                 }\CommentTok{\# s0 = A}
+\NormalTok{    mv s1}\OperatorTok{,}\NormalTok{ a1                 }\CommentTok{\# s1 = B}
+\NormalTok{    mv s2}\OperatorTok{,}\NormalTok{ a2                 }\CommentTok{\# s2 = Q}
+\NormalTok{    mv s3}\OperatorTok{,}\NormalTok{ a3                 }\CommentTok{\# s3 = R}
+\NormalTok{    li t0}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# j = 0 (as byte offset 4*j)}
+\NormalTok{    li t1}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# divisor\_bits = 0}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{32}
+
+\CommentTok{\# for(int j=0; j\textless{}32; j++)}
+\FunctionTok{div\_clear:}
+\NormalTok{    add t3}\OperatorTok{,}\NormalTok{ s2}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    sw zero}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t3}\OperatorTok{)}            \CommentTok{\# Q[j] = 0}
+\NormalTok{    add t3}\OperatorTok{,}\NormalTok{ s3}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    sw zero}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t3}\OperatorTok{)}            \CommentTok{\# R[j] = 0}
+\NormalTok{    add t3}\OperatorTok{,}\NormalTok{ s1}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    lw t4}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t3}\OperatorTok{)}              \CommentTok{\# B[j]}
+    \KeywordTok{or}\NormalTok{ t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,}\NormalTok{ t4             }\CommentTok{\# divisor\_bits |= B[j]}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{4}            \CommentTok{\# j++}
+\NormalTok{    addi t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t2}\OperatorTok{,}\NormalTok{ div\_clear        }\CommentTok{\# while(j \textless{} 32)}
+
+\NormalTok{    beqz t1}\OperatorTok{,}\NormalTok{ div\_zero         }\CommentTok{\# if(divisor\_bits == 0) return 1;}
+\NormalTok{    li s4}\OperatorTok{,} \DecValTok{1023}               \CommentTok{\# i = 1023}
+
+\CommentTok{\# for(int i=1023; i\textgreater{}=0; i{-}{-}): R = 2R + bit i of A}
+\FunctionTok{div\_bit:}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ s3}\OperatorTok{,} \DecValTok{124}          \CommentTok{\# t0 = \&R[31]}
+\NormalTok{    li t1}\OperatorTok{,} \DecValTok{31}                 \CommentTok{\# j = 31}
+\FunctionTok{div\_shift:}
+\NormalTok{    lw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}              \CommentTok{\# R[j]}
+\NormalTok{    lw t3}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{4}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}             \CommentTok{\# R[j{-}1]}
+\NormalTok{    slli t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,} \DecValTok{1}            \CommentTok{\# R[j] \textless{}\textless{} 1}
+\NormalTok{    srli t3}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,} \DecValTok{31}           \CommentTok{\# R[j{-}1] \textgreater{}\textgreater{} 31: bit moving up}
+    \KeywordTok{or}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t3             }\CommentTok{\# R[j] = (R[j]\textless{}\textless{}1) | (R[j{-}1]\textgreater{}\textgreater{}31)}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{4}           \CommentTok{\# j{-}{-}}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t1}\OperatorTok{,}\NormalTok{ div\_shift        }\CommentTok{\# while(j \textgreater{} 0)}
+
+\NormalTok{    srli t0}\OperatorTok{,}\NormalTok{ s4}\OperatorTok{,} \DecValTok{5}            \CommentTok{\# i / 32}
+\NormalTok{    slli t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{2}            \CommentTok{\# byte offset 4*(i/32)}
+\NormalTok{    add t0}\OperatorTok{,}\NormalTok{ s0}\OperatorTok{,}\NormalTok{ t0            }\CommentTok{\# \&A[i/32]}
+\NormalTok{    lw t1}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}              \CommentTok{\# A[i/32]}
+\NormalTok{    andi t2}\OperatorTok{,}\NormalTok{ s4}\OperatorTok{,} \DecValTok{31}           \CommentTok{\# i \% 32}
+\NormalTok{    srl t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,}\NormalTok{ t2            }\CommentTok{\# A[i/32] \textgreater{}\textgreater{} (i\%32)}
+\NormalTok{    andi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \DecValTok{1}            \CommentTok{\# bit = ... \& 1u}
+\NormalTok{    lw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{s3}\OperatorTok{)}              \CommentTok{\# R[0]}
+\NormalTok{    slli t3}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,} \DecValTok{1}            \CommentTok{\# R[0] \textless{}\textless{} 1}
+    \KeywordTok{or}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ t1             }\CommentTok{\# R[0] = (R[0]\textless{}\textless{}1) | bit}
+\NormalTok{    sw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{s3}\OperatorTok{)}
+
+\NormalTok{    li t0}\OperatorTok{,} \DecValTok{124}                \CommentTok{\# j = 31 (byte offset 124)}
+\CommentTok{\# if(R \textgreater{}= B): compare from the highest word down; t0 = 4*j}
+\FunctionTok{div\_compare:}
+\NormalTok{    add t1}\OperatorTok{,}\NormalTok{ s3}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    add t2}\OperatorTok{,}\NormalTok{ s1}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    lw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}              \CommentTok{\# R[j]}
+\NormalTok{    lw t4}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t2}\OperatorTok{)}              \CommentTok{\# B[j]}
+\NormalTok{    bltu t3}\OperatorTok{,}\NormalTok{ t4}\OperatorTok{,}\NormalTok{ div\_next     }\CommentTok{\# R[j] \textless{} B[j]: R \textless{} B, no subtraction}
+\NormalTok{    bltu t4}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ div\_subtract }\CommentTok{\# R[j] \textgreater{} B[j]: R \textgreater{} B, subtract}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{4}           \CommentTok{\# R[j] == B[j]: j{-}{-}, compare lower word}
+\NormalTok{    bgez t0}\OperatorTok{,}\NormalTok{ div\_compare      }\CommentTok{\# while(j \textgreater{}= 0); falling out means R == B}
+
+\CommentTok{\# R {-}= B into temporary D (sub1024 buffers must not overlap)}
+\FunctionTok{div\_subtract:}
+\NormalTok{    mv a0}\OperatorTok{,}\NormalTok{ s3                 }\CommentTok{\# a0 = R}
+\NormalTok{    mv a1}\OperatorTok{,}\NormalTok{ s1                 }\CommentTok{\# a1 = B}
+\NormalTok{    mv a2}\OperatorTok{,} \KeywordTok{sp}                 \CommentTok{\# a2 = D (on the stack)}
+\NormalTok{    jal ra}\OperatorTok{,}\NormalTok{ sub1024           }\CommentTok{\# sub1024(R, B, D);}
+
+\NormalTok{    li t0}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# j = 0 (as byte offset 4*j)}
+\NormalTok{    li t1}\OperatorTok{,} \DecValTok{32}
+\CommentTok{\# for(int j=0; j\textless{}32; j++)}
+\FunctionTok{div\_copy:}
+\NormalTok{    add t2}\OperatorTok{,} \KeywordTok{sp}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    lw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t2}\OperatorTok{)}              \CommentTok{\# D[j]}
+\NormalTok{    add t2}\OperatorTok{,}\NormalTok{ s3}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    sw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t2}\OperatorTok{)}              \CommentTok{\# R[j] = D[j]}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{4}            \CommentTok{\# j++}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t1}\OperatorTok{,}\NormalTok{ div\_copy         }\CommentTok{\# while(j \textless{} 32)}
+
+\NormalTok{    srli t0}\OperatorTok{,}\NormalTok{ s4}\OperatorTok{,} \DecValTok{5}            \CommentTok{\# i / 32}
+\NormalTok{    slli t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{2}            \CommentTok{\# byte offset 4*(i/32)}
+\NormalTok{    add t0}\OperatorTok{,}\NormalTok{ s2}\OperatorTok{,}\NormalTok{ t0            }\CommentTok{\# \&Q[i/32]}
+\NormalTok{    andi t1}\OperatorTok{,}\NormalTok{ s4}\OperatorTok{,} \DecValTok{31}           \CommentTok{\# i \% 32}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    sll t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ t1            }\CommentTok{\# 1u \textless{}\textless{} (i\%32)}
+\NormalTok{    lw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}              \CommentTok{\# Q[i/32]}
+    \KeywordTok{or}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,}\NormalTok{ t2             }\CommentTok{\# Q[i/32] |= 1u \textless{}\textless{} (i\%32)}
+\NormalTok{    sw t3}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+
+\FunctionTok{div\_next:}
+\NormalTok{    addi s4}\OperatorTok{,}\NormalTok{ s4}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}           \CommentTok{\# i{-}{-}}
+\NormalTok{    bgez s4}\OperatorTok{,}\NormalTok{ div\_bit          }\CommentTok{\# while(i \textgreater{}= 0)}
+
+\NormalTok{    li a0}\OperatorTok{,} \DecValTok{0}                  \CommentTok{\# return 0;}
+\NormalTok{    j div\_return}
+
+\CommentTok{\# B == 0: Q and R are already cleared.}
+\FunctionTok{div\_zero:}
+\NormalTok{    li a0}\OperatorTok{,} \DecValTok{1}                  \CommentTok{\# return 1;}
+
+\CommentTok{\# Restore s0{-}s4, ra and release the frame.}
+\FunctionTok{div\_return:}
+\NormalTok{    lw s0}\OperatorTok{,} \DecValTok{128}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    lw s1}\OperatorTok{,} \DecValTok{132}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    lw s2}\OperatorTok{,} \DecValTok{136}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    lw s3}\OperatorTok{,} \DecValTok{140}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    lw s4}\OperatorTok{,} \DecValTok{144}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    lw ra}\OperatorTok{,} \DecValTok{148}\OperatorTok{(}\KeywordTok{sp}\OperatorTok{)}
+\NormalTok{    addi }\KeywordTok{sp}\OperatorTok{,} \KeywordTok{sp}\OperatorTok{,} \DecValTok{160}
+    \KeywordTok{ret}
+
+\CommentTok{\# print\_words: a0=name, a1=\&X, a2=word count; prints X high word first.}
+\CommentTok{\# Uses ecall, so it is kept out of the arithmetic routines.}
+\FunctionTok{print\_words:}
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{4}                  \CommentTok{\# print string}
+\NormalTok{    ecall}
+
+\NormalTok{    slli t0}\OperatorTok{,}\NormalTok{ a2}\OperatorTok{,} \DecValTok{2}
+\NormalTok{    add t0}\OperatorTok{,}\NormalTok{ a1}\OperatorTok{,}\NormalTok{ t0}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{4}
+\NormalTok{    mv t1}\OperatorTok{,}\NormalTok{ a2}
+\CommentTok{\# for(int i=count{-}1; i\textgreater{}=0; i{-}{-}); t0 = \&X[i], t1 = words left}
+\FunctionTok{print\_loop:}
+\NormalTok{    lw a0}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{34}                 \CommentTok{\# print word in hex}
+\NormalTok{    ecall}
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ space}
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{4}                  \CommentTok{\# print string}
+\NormalTok{    ecall}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{4}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t1}\OperatorTok{,}\NormalTok{ print\_loop}
+
+\NormalTok{    la a0}\OperatorTok{,}\NormalTok{ newline}
+\NormalTok{    li a7}\OperatorTok{,} \DecValTok{4}                  \CommentTok{\# print string}
+\NormalTok{    ecall}
+    \KeywordTok{ret}
+
+\CommentTok{\# load\_case(int test): a0=test (1..10); initialize global inputs and outputs.}
+\FunctionTok{load\_case:}
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ A}
+\NormalTok{    la t1}\OperatorTok{,}\NormalTok{ B}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{32}
+\CommentTok{\# for(int i=0; i\textless{}32; i++) A[i]=B[i]=0;}
+\FunctionTok{case\_clear:}
+\NormalTok{    sw zero}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    sw zero}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t2}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t2}\OperatorTok{,}\NormalTok{ case\_clear}
+
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ Sum}
+\NormalTok{    la t1}\OperatorTok{,}\NormalTok{ carry}
+\NormalTok{    li t2}\OperatorTok{,} \BaseNTok{0xa5a5a5a5}
+\CommentTok{\# Fill Sum..R with 0xa5a5a5a5 to expose unwritten words; R ends at carry.}
+\FunctionTok{case\_fill\_outputs:}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    bltu t0}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,}\NormalTok{ case\_fill\_outputs}
+
+\NormalTok{    la t0}\OperatorTok{,}\NormalTok{ A}
+\NormalTok{    la t1}\OperatorTok{,}\NormalTok{ B}
+    \CommentTok{\# switch(test): branch to cases 1..9; valid case 10 falls through.}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_1}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{2}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_2}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{3}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_3}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_4}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{5}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_5}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{6}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_6}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{7}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_7}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{8}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_8}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{9}
+\NormalTok{    beq a0}\OperatorTok{,}\NormalTok{ t2}\OperatorTok{,}\NormalTok{ case\_9}
+    \CommentTok{\# case 10: A[31]=1u\textless{}\textless{}31; B[0]=3; // A=2\^{}1023.}
+\NormalTok{    li t2}\OperatorTok{,} \BaseNTok{0x80000000}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{124}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{3}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+    \KeywordTok{ret}
+\CommentTok{\# case 1: A=0, B=1.}
+\FunctionTok{case\_1:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+    \KeywordTok{ret}
+\CommentTok{\# case 2: A=1, B=0.}
+\FunctionTok{case\_2:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+    \KeywordTok{ret}
+\CommentTok{\# case 3: A=B=2\^{}700+123456789. 700=21*32+28, so word 21 is at byte offset 84.}
+\FunctionTok{case\_3:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{123456789}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+\NormalTok{    li t2}\OperatorTok{,} \BaseNTok{0x10000000}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{84}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{84}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+    \KeywordTok{ret}
+\CommentTok{\# case 4: A=100, B=4.}
+\FunctionTok{case\_4:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{100}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+    \KeywordTok{ret}
+\CommentTok{\# case 5: A=100, B=7.}
+\FunctionTok{case\_5:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{100}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{7}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+    \KeywordTok{ret}
+\CommentTok{\# case 6: B[0]=1; for(int i=0; i\textless{}32; i++) A[i]=UINT32\_MAX;}
+\FunctionTok{case\_6:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+\NormalTok{    li t2}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    li t3}\OperatorTok{,} \DecValTok{32}
+\FunctionTok{case\_6\_loop:}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t3}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t3}\OperatorTok{,}\NormalTok{ case\_6\_loop}
+    \KeywordTok{ret}
+\CommentTok{\# case 7: A[31]=1; B[0]=1; // A=2\^{}992.}
+\FunctionTok{case\_7:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{1}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{124}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+    \KeywordTok{ret}
+\CommentTok{\# case 8: for(int i=0; i\textless{}32; i++) A[i]=B[i]=UINT32\_MAX;}
+\FunctionTok{case\_8:}
+\NormalTok{    li t2}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    li t3}\OperatorTok{,} \DecValTok{32}
+\FunctionTok{case\_8\_loop:}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+\NormalTok{    addi t0}\OperatorTok{,}\NormalTok{ t0}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t1}\OperatorTok{,}\NormalTok{ t1}\OperatorTok{,} \DecValTok{4}
+\NormalTok{    addi t3}\OperatorTok{,}\NormalTok{ t3}\OperatorTok{,} \OperatorTok{{-}}\DecValTok{1}
+\NormalTok{    bnez t3}\OperatorTok{,}\NormalTok{ case\_8\_loop}
+    \KeywordTok{ret}
+\CommentTok{\# case 9: A=5, B=9.}
+\FunctionTok{case\_9:}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{5}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t0}\OperatorTok{)}
+\NormalTok{    li t2}\OperatorTok{,} \DecValTok{9}
+\NormalTok{    sw t2}\OperatorTok{,} \DecValTok{0}\OperatorTok{(}\NormalTok{t1}\OperatorTok{)}
+    \KeywordTok{ret}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}
