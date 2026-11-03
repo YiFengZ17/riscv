@@ -89,6 +89,7 @@ main_case:
     sw a0, 0(t0)
 
     # printf("\nCase %d\n", test);
+    # only print and main use ecall
     la a0, case_text
     li a7, 4
     ecall
@@ -104,46 +105,57 @@ main_case:
     la a1, A
     li a2, 32
     jal ra, print_words
+
     la a0, b_text
     la a1, B
     li a2, 32
     jal ra, print_words
+
     la a0, sum_text
     la a1, Sum
     li a2, 32
     jal ra, print_words
+
     la a0, sub_text
     la a1, Sub
     li a2, 32
     jal ra, print_words
+
     la a0, pro_text
     la a1, Pro
     li a2, 64
     jal ra, print_words
+
     la a0, q_text
     la a1, Q
     li a2, 32
     jal ra, print_words
+
     la a0, r_text
     la a1, R
     li a2, 32
     jal ra, print_words
+
     la a0, carry_text
     la a1, carry
     li a2, 1
     jal ra, print_words
+
     la a0, borrow_text
     la a1, borrow
     li a2, 1
     jal ra, print_words
+
     la a0, mul_text
     la a1, mul_status
     li a2, 1
     jal ra, print_words
+
     la a0, status_text
     la a1, status
     li a2, 1
     jal ra, print_words
+    
     addi s0, s0, 1
     la t0, last_case
     lw t0, 0(t0)
