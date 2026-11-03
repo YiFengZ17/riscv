@@ -6,7 +6,6 @@
 first_case: .word 1
 last_case:  .word 10
 # uint32_t A[32], B[32], Sum[32], Sub[32], Pro[64], Q[32], R[32];
-# Each normal array occupies 128 bytes; the full product occupies 256 bytes.
 A:          .space 128
 B:          .space 128
 Sum:        .space 128
@@ -15,13 +14,13 @@ Pro:        .space 256
 Q:          .space 128
 R:          .space 128
 
-# Return values saved by main to show the calculation status
+# Return values of the four routines, saved by main.
 carry:      .word 0
 borrow:     .word 0
 mul_status: .word 0
 div_status: .word 0
 
-# Output strings: '.asciz' is equivalent to a C char array.
+# Output strings for printing.
 case_text:  .asciz "\nCase "
 newline:    .asciz "\n"
 space:      .asciz " "
@@ -45,7 +44,7 @@ div_status_text: .asciz "div_status: "
 .globl div1024
 
 
-# s0=test across calls. a0..a3 pass arguments; save each return value in a0 before reusing it.
+# main: run cases first_case..last_case; s0 = current case (kept across calls).
 main:
     # Align the initial RARS stack pointer to 16 bytes.
     andi sp, sp, -16
@@ -91,16 +90,15 @@ main_case:
     # printf("\nCase %d\n", test);
     # only print and main use ecall
     la a0, case_text
-    li a7, 4
+    li a7, 4                  # print string
     ecall
     mv a0, s0
-    li a7, 1
+    li a7, 1                  # print integer
     ecall
     la a0, newline
-    li a7, 4
+    li a7, 4                  # print string
     ecall
-    # Print all inputs/results with print_words(label, array, count).
-    # Use 64 words for Pro, 32 for other arrays, and 1 for each status.
+    # print_words(name, &X, word count) for every input and result.
     la a0, a_text
     la a1, A
     li a2, 32
@@ -161,19 +159,16 @@ main_case:
     lw t0, 0(t0)
     bge t0, s0, main_case
 
-    li a7, 10
+    li a7, 10                 # exit
     ecall
 
-# a0=A, a1=B, a2=Sum; return carry in a0. No stack frame.
-# t0=words remaining, t1=carry, t4/t5=two carry flags.
+# add1024: a0=&A, a1=&B, a2=&Sum; returns carry in a0. Leaf, no stack frame.
+# t0 = words left, t1 = carry.
 add1024:
     li t0, 32
     li t1, 0
 
-# for(int i=0; i<32; i++):
-# partial = A[i] + B[i]; c1 = (partial < A[i]);
-# Sum[i] = partial + carry; c2 = (Sum[i] < partial); carry = c1 | c2;
-# sltu computes an unsigned comparison as 0/1, replacing the C if/else.
+# for(int i=0; i<32; i++)
 add_loop:
     lw t2, 0(a0)              # t2 = A[i]
     lw t3, 0(a1)              # t3 = B[i]
@@ -192,15 +187,13 @@ add_loop:
     mv a0, t1                 # return carry;
     ret
 
-# a0=A, a1=B, a2=Sub; return borrow in a0. No stack frame.
-# t0=words remaining, t1=borrow, t4/t5=two borrow flags.
+# sub1024: a0=&A, a1=&B, a2=&Sub; returns borrow in a0. Leaf, no stack frame.
+# t0 = words left, t1 = borrow.
 sub1024:
     li t0, 32
     li t1, 0
 
-# for(int i=0; i<32; i++):
-# b1 = (A[i] < B[i]); partial = A[i] - B[i];
-# b2 = (partial < borrow); Sub[i] = partial - borrow; borrow = b1 | b2;
+# for(int i=0; i<32; i++)
 sub_loop:
     lw t2, 0(a0)              # t2 = A[i]
     lw t3, 0(a1)              # t3 = B[i]
@@ -219,9 +212,9 @@ sub_loop:
     mv a0, t1                 # return borrow;
     ret
 
-# a0=A, a1=B, a2=Pro; return 0. s0=B, s1=Pro, s2=bit index i.
-# 272-byte frame: uint32_t T[64] at sp+0..255;
-# saved s0/s1/s2 at +256/+260/+264, then 4 bytes of padding. No nested calls.
+# mul1024: a0=&A, a1=&B, a2=&Pro; returns 0. Leaf.
+# s0 = &B, s1 = &Pro, s2 = i (bit index of B).
+# Frame 272 bytes: T[64] at sp+0..255, s0-s2 at sp+256..264.
 mul1024:
     addi sp, sp, -272
     sw s0, 256(sp)
@@ -235,8 +228,7 @@ mul1024:
     mv t1, sp                 # t1 = &T[0]
     mv t2, a2                 # t2 = &Pro[0]
 
-# for(int j=0; j<64; j++){ Pro[j]=0; T[j]=(j<32 ? A[j] : 0); }
-# t0=j, t1=&T[j], t2=&Pro[j].
+# for(int j=0; j<64; j++)
 mul_init:
     sw zero, 0(t2)            # Pro[j] = 0
     li t3, 32
@@ -254,8 +246,7 @@ mul_init_store:
     li t3, 64
     blt t0, t3, mul_init      # while(j < 64)
 
-# for(int i=0; i<1024; i++): bit_i = (B[i/32] >> (i%32)) & 1u;
-# i>>5 gives i/32; i&31 gives i%32; multiply the word index by 4 for its byte offset.
+# for(int i=0; i<1024; i++)
 mul_bit:
     srli t0, s2, 5            # i / 32
     slli t0, t0, 2            # byte offset 4*(i/32)
@@ -270,8 +261,7 @@ mul_bit:
     mv t1, sp                 # t1 = &T[0]
     li t2, 64                 # 64 words to add
     li t3, 0                  # carry = 0
-# if(bit_i): add T to all 64 words of Pro, using the same two-carry logic as add1024.
-# t0=&Pro[j], t1=&T[j], t2=words remaining, t3=carry.
+# if(bit_i) Pro += T over 64 words; t3 = carry.
 mul_add:
     lw t4, 0(t0)              # t4 = Pro[j]
     lw t5, 0(t1)              # t5 = T[j]
@@ -286,9 +276,7 @@ mul_add:
     addi t2, t2, -1
     bnez t2, mul_add          # while(j < 64)
 
-# Regardless of bit_i: for(int j=63; j>0; j--)
-#     T[j] = (T[j]<<1) | (T[j-1]>>31);
-# Then T[0] <<= 1. Process high words first to preserve the lower source word.
+# T <<= 1 over 64 words, high word first: for(int j=63; j>0; j--)
 mul_shift:
     addi t0, sp, 252          # t0 = &T[63]
     li t1, 63                 # j = 63
@@ -311,7 +299,7 @@ mul_shift_loop:
     li t0, 1024
     blt s2, t0, mul_bit       # while(i < 1024)
 
-    # Restore saved registers and release the entire frame.
+    # Restore s0-s2 and release the frame.
     lw s0, 256(sp)
     lw s1, 260(sp)
     lw s2, 264(sp)
@@ -319,13 +307,10 @@ mul_shift_loop:
     li a0, 0                  # return 0;
     ret
 
-# a0=A, a1=B, a2=Q, a3=R; return 0, or 1 for division by zero.
-# s0=A, s1=B, s2=Q, s3=R, s4=bit index i.
-# 160-byte frame: uint32_t D[32] at sp+0..127; saved s0..s4 at +128..144;
-# saved ra at +148, then 8 bytes of padding. Save ra for the call to sub1024.
-# Invariant: R is the processed prefix modulo B, so R<B after each iteration.
-# With a zero initial remainder and 1024 input bits, the shifted R is bounded by
-# the current input prefix and fits in 32 words.
+# div1024: a0=&A, a1=&B, a2=&Q, a3=&R; returns 0, or 1 if B==0 (Q=R=0).
+# s0 = &A, s1 = &B, s2 = &Q, s3 = &R, s4 = i (bit index of A).
+# Frame 160 bytes: D[32] at sp+0..127, s0-s4 at sp+128..144, ra at sp+148.
+# Invariant: R < B and R <= processed prefix of A, so 2R+bit fits in 32 words.
 div1024:
     addi sp, sp, -160
     sw s0, 128(sp)
@@ -343,9 +328,7 @@ div1024:
     li t1, 0                  # divisor_bits = 0
     li t2, 32
 
-# for(int j=0; j<32; j++){ Q[j]=R[j]=0; divisor_bits |= B[j]; }
-# t0=byte offset, t1=divisor_bits, t2=words remaining.
-# divisor_bits==0 is equivalent to the C zero flag being true.
+# for(int j=0; j<32; j++)
 div_clear:
     add t3, s2, t0
     sw zero, 0(t3)            # Q[j] = 0
@@ -361,8 +344,7 @@ div_clear:
     beqz t1, div_zero         # if(divisor_bits == 0) return 1;
     li s4, 1023               # i = 1023
 
-# for(int i=1023; i>=0; i--):
-# for(int j=31; j>0; j--) R[j] = (R[j]<<1) | (R[j-1]>>31);
+# for(int i=1023; i>=0; i--): R = 2R + bit i of A
 div_bit:
     addi t0, s3, 124          # t0 = &R[31]
     li t1, 31                 # j = 31
@@ -377,7 +359,6 @@ div_shift:
     addi t1, t1, -1
     bnez t1, div_shift        # while(j > 0)
 
-    # R[0] = (R[0]<<1) | ((A[i/32] >> (i%32)) & 1u);
     srli t0, s4, 5            # i / 32
     slli t0, t0, 2            # byte offset 4*(i/32)
     add t0, s0, t0            # &A[i/32]
@@ -391,9 +372,7 @@ div_shift:
     sw t3, 0(s3)
 
     li t0, 124                # j = 31 (byte offset 124)
-# Compare R and B from word 31 downward. Skip subtraction if R[j]<B[j];
-# subtract if R[j]>B[j]; continue on equality. All equal also means R>=B.
-# Branches encode the C greater_equal flag; t0=4*j.
+# if(R >= B): compare from the highest word down; t0 = 4*j
 div_compare:
     add t1, s3, t0
     add t2, s1, t0
@@ -404,7 +383,7 @@ div_compare:
     addi t0, t0, -4           # R[j] == B[j]: j--, compare lower word
     bgez t0, div_compare      # while(j >= 0); falling out means R == B
 
-# if(greater_equal) sub1024(R, B, D); use separate D to avoid overlapping buffers.
+# R -= B into temporary D (sub1024 buffers must not overlap)
 div_subtract:
     mv a0, s3                 # a0 = R
     mv a1, s1                 # a1 = B
@@ -413,7 +392,7 @@ div_subtract:
 
     li t0, 0                  # j = 0 (as byte offset 4*j)
     li t1, 32
-# for(int j=0; j<32; j++) R[j] = D[j];
+# for(int j=0; j<32; j++)
 div_copy:
     add t2, sp, t0
     lw t3, 0(t2)              # D[j]
@@ -423,7 +402,6 @@ div_copy:
     addi t1, t1, -1
     bnez t1, div_copy         # while(j < 32)
 
-    # Q[i/32] |= 1u << (i%32);
     srli t0, s4, 5            # i / 32
     slli t0, t0, 2            # byte offset 4*(i/32)
     add t0, s2, t0            # &Q[i/32]
@@ -441,11 +419,11 @@ div_next:
     li a0, 0                  # return 0;
     j div_return
 
-# Division by zero: Q and R are already cleared; return 1.
+# B == 0: Q and R are already cleared.
 div_zero:
     li a0, 1                  # return 1;
 
-# Both return paths restore saved registers/ra and release the 160-byte frame.
+# Restore s0-s4, ra and release the frame.
 div_return:
     lw s0, 128(sp)
     lw s1, 132(sp)
@@ -456,33 +434,30 @@ div_return:
     addi sp, sp, 160
     ret
 
-# print_words(const char* name, const uint32_t* X, int count);
-# a0=name, a1=X, a2=count. Print all words, including leading zeros.
-# RARS services: 4=string, 1=decimal integer, 34=hex word, 10=exit;
-# a7 selects the service and a0 holds its argument. These print services preserve t-registers.
+# print_words: a0=name, a1=&X, a2=word count; prints X high word first.
+# Uses ecall, so it is kept out of the arithmetic routines.
 print_words:
-    li a7, 4
+    li a7, 4                  # print string
     ecall
 
     slli t0, a2, 2
     add t0, a1, t0
     addi t0, t0, -4
     mv t1, a2
-# for(int i=count-1; i>=0; i--) printf("0x%08x ", X[i]); then print a newline.
-# t0=&X[i], t1=words remaining.
+# for(int i=count-1; i>=0; i--); t0 = &X[i], t1 = words left
 print_loop:
     lw a0, 0(t0)
-    li a7, 34
+    li a7, 34                 # print word in hex
     ecall
     la a0, space
-    li a7, 4
+    li a7, 4                  # print string
     ecall
     addi t0, t0, -4
     addi t1, t1, -1
     bnez t1, print_loop
 
     la a0, newline
-    li a7, 4
+    li a7, 4                  # print string
     ecall
     ret
 
@@ -503,8 +478,7 @@ case_clear:
     la t0, Sum
     la t1, carry
     li t2, 0xa5a5a5a5
-# Prefill all output words with 0xa5a5a5a5u to detect missing writes.
-# Sum/Sub/Pro/Q/R are contiguous; stop at carry, which follows the last buffer.
+# Fill Sum..R with 0xa5a5a5a5 to expose unwritten words; R ends at carry.
 case_fill_outputs:
     sw t2, 0(t0)
     addi t0, t0, 4
