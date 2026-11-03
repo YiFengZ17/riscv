@@ -1,0 +1,9 @@
+截图已从 RARS 1.6 实际运行界面捕获，分辨率 1600×1100。
+01-instruction-counter.png：第8组，全程序共 1701353 条指令，含打印。计数器逐条计数，界面在运行结束时刷新。
+02-run-io.png：第5组完整输出；其余9组为 02-case-XX-run-io.png。
+03a–07c：按待补清单的用例和断点截图；寄存器与内存的实际值见 capture-state.log。
+06a/06b 主图显示栈上的 T，Pro[31]/Pro[32] 的实际值记录在 capture-state.log。
+command-run-actual.txt：原始汇编一次运行全部10组的实际输出。
+run-io-actual.txt：图形界面逐组运行的实际输出。
+verification.txt：Python 任意精度整数核对结果，10组全部通过。
+原始 bigint1024.s 和实验报告未修改。单组运行通过临时源文件设置 first_case/last_case。
